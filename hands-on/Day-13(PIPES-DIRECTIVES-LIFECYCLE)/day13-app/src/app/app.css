@@ -1,0 +1,38 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+
+    width:700px;
+    margin:40px auto;
+
+}
+
+.card{
+
+    border:1px solid gray;
+    padding:30px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:20px;
+
+}
+
+h1{
+
+    color:#1976d2;
+
+}
+
+h2{
+
+    margin-top:35px;
+
+}
+
+hr{
+
+    margin:30px 0;
+
+}
