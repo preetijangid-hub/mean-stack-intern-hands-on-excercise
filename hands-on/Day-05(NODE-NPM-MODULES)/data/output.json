@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Preeti",
+    "marks": 85,
+    "status": "Pass"
+  },
+  {
+    "name": "Rahul",
+    "marks": 70,
+    "status": "Needs Improvement"
+  },
+  {
+    "name": "Aman",
+    "marks": 92,
+    "status": "Pass"
+  }
+]

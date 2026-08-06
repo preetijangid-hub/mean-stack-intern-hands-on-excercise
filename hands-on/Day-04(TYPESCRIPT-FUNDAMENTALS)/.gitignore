@@ -1,0 +1,10 @@
+# Day-04 .gitignore
+
+`Day-04(TYPESCRIPT-FUNDAMENTALS)/.gitignore`
+
+```gitignore
+node_modules/
+
+dist/
+
+*.log
