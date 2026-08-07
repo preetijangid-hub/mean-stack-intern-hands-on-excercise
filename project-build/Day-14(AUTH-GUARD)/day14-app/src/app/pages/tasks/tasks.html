@@ -1,0 +1,58 @@
+<div class="tasks-page">
+
+  <header class="topbar">
+
+    <div>
+      <h1>TaskFlow</h1>
+      <p>Protected Tasks Dashboard</p>
+    </div>
+
+    <button
+      class="logout-btn"
+      (click)="logout()">
+      Logout
+    </button>
+
+  </header>
+
+  <main class="content">
+
+    <h2>My Tasks</h2>
+
+    <div class="task-grid">
+
+      @for (task of tasks; track task.id) {
+
+        <div class="task-card">
+
+          <div class="task-header">
+
+            <h3>
+              {{ task.title }}
+            </h3>
+
+            <span
+              class="status"
+              [class.completed]="task.status === 'Completed'"
+              [class.progress]="task.status === 'In Progress'"
+              [class.pending]="task.status === 'Pending'">
+
+              {{ task.status }}
+
+            </span>
+
+          </div>
+
+          <p>
+            {{ task.description }}
+          </p>
+
+        </div>
+
+      }
+
+    </div>
+
+  </main>
+
+</div>

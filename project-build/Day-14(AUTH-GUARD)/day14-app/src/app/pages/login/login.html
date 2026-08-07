@@ -1,0 +1,62 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <h1>Login</h1>
+
+    <p class="subtitle">
+      Login to access your dashboard
+    </p>
+
+    <form (ngSubmit)="login()">
+
+      <label>
+        Username
+      </label>
+
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="username"
+        placeholder="Enter username"
+        required
+      >
+
+      <label>
+        Password
+      </label>
+
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Enter password"
+        required
+      >
+
+      @if(errorMessage) {
+
+        <p class="error">
+          {{ errorMessage }}
+        </p>
+
+      }
+
+      <button type="submit">
+        Login
+      </button>
+
+    </form>
+
+    <div class="demo">
+
+      <strong>Demo Login</strong>
+
+      <p>Username: admin</p>
+      <p>Password: 1234</p>
+
+    </div>
+
+  </div>
+
+</div>

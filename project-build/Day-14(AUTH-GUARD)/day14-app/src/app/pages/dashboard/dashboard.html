@@ -1,0 +1,70 @@
+<div class="dashboard">
+
+  <div class="header">
+
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome to your protected dashboard</p>
+    </div>
+
+    <button class="logout-btn" (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h2>Protected Route</h2>
+
+      <p>
+        You can see this page because you are logged in.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Authentication</h2>
+
+      <p>
+        Auth Guard is protecting this route.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>HTTP Interceptor</h2>
+
+      <p>
+        Authentication token will automatically
+        be attached to HTTP requests.
+      </p>
+
+      <button
+        class="test-btn"
+        (click)="testInterceptor()">
+
+        Test HTTP Request
+
+      </button>
+
+      @if(responseMessage) {
+
+        <p class="response">
+          {{ responseMessage }}
+        </p>
+
+      }
+
+    </div>
+
+  </div>
+
+</div>
