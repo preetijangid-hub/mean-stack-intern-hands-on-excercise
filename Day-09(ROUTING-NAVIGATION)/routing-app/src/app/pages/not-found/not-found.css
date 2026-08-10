@@ -1,0 +1,19 @@
+.not-found {
+  text-align: center;
+  padding: 80px 40px;
+}
+
+.not-found h1 {
+  font-size: 72px;
+  margin: 0;
+  color: #dc2626;
+}
+
+.not-found h2 {
+  font-size: 28px;
+}
+
+.not-found a {
+  display: inline-block;
+  margin-top: 20px;
+}

@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <div class="logo">TaskFlow</div>
+
+  <div class="nav-links">
+    <a routerLink="/home">Home</a>
+
+    <a routerLink="/tasks">Tasks</a>
+
+    <a
+      [routerLink]="['/tasks']"
+      [queryParams]="{ status: 'completed' }"
+    >
+      Completed
+    </a>
+
+    <a routerLink="/reports">Reports</a>
+  </div>
+</nav>
