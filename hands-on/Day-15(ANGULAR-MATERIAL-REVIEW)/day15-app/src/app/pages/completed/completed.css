@@ -1,0 +1,11 @@
+.completed-message {
+  padding: 24px 0;
+}
+
+.completed-message h2 {
+  margin-bottom: 12px;
+}
+
+.completed-message p {
+  line-height: 1.6;
+}
