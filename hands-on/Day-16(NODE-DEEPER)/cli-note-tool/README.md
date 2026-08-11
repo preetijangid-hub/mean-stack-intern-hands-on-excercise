@@ -321,6 +321,79 @@ Run:
 npm install
 ng serve
 
+
+Day 16 --- Node.js Deeper + CLI Note Tool
+
+Topics: Node.js deeper concepts, CLI applications, command-line arguments,
+File System module, JSON file handling, reading/writing files,
+creating and managing data from the terminal, npm scripts and
+Node.js application structure.
+
+Exercise --- CLI Note Tool
+
+Build a command-line based Note Management application using Node.js.
+
+The application allows users to manage notes directly from the terminal.
+
+Features:
+- Add a new note
+- View existing notes
+- Store notes in a JSON file
+- Read and write JSON data using Node.js
+- Handle command-line arguments
+- Validate note input
+- Maintain persistent note data
+- Use Node.js File System APIs
+- Organize the application using package.json
+- Provide a README with usage instructions
+
+Project Structure:
+
+Day-16(NODE-DEEPER)/
+└── cli-note-tool/
+    ├── app.js
+    ├── notes.json
+    ├── package.json
+    ├── README.md
+    ├── .gitignore
+    └── .gitattributes
+
+Running Day 16 Exercise
+
+Go to the CLI Note Tool:
+
+cd "hands-on/Day-16(NODE-DEEPER)/cli-note-tool"
+
+Install dependencies:
+
+npm install
+
+Run the application:
+
+node app.js
+
+The CLI application can be used from the terminal to create and manage notes.
+
+Example:
+
+node app.js add "Learn Node.js"
+node app.js list
+
+## Day 16 Learning Outcome
+
+By completing this exercise, the following Node.js concepts were practiced:
+
+- Node.js runtime
+- Command-line applications
+- Command-line arguments
+- File System module
+- Reading and writing files
+- JSON data processing
+- Persistent local data storage
+- npm and package.json
+- Node.js project structure
+- Error handling and input validation
+
 ###### Running Angular Exercises
 
 Go to the required Angular project:
@@ -376,6 +449,7 @@ Day 12 Hands-on: RxJS search
 Day 13 Hands-on: Custom pipe and directive
 Day 14 Hands-on: Guards and interceptors
 Day 15 Hands-on: Angular Material
+Day 16 Hands-on: Node.js Deeper and CLI Note Tool
 
 Repository Structure
 
@@ -396,6 +470,7 @@ mean-stack-hands-on/
 ├── Day-13(PIPES-DIRECTIVES)/
 ├── Day-14(GUARDS-INTERCEPTORS)/
 ├── Day-15(ANGULAR-MATERIAL)/
+├── Day 16(Node.js Deeper and CLI Note Tool)/
 └── README.md
 
 Folder names may vary according to the local project setup.
