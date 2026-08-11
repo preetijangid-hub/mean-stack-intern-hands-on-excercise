@@ -1,0 +1,11 @@
+
+---
+
+# Day-05 .gitignore
+
+`Day-05(NODE-NPM-MODULES)/.gitignore`
+
+```gitignore
+node_modules/
+
+*.log

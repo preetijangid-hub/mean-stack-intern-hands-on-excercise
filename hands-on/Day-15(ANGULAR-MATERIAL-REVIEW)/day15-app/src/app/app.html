@@ -1,0 +1,42 @@
+<mat-toolbar>
+  <span>TaskFlow</span>
+
+  <span class="spacer"></span>
+
+  <a
+    mat-button
+    routerLink="/"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Home
+  </a>
+
+  <a
+    mat-button
+    routerLink="/tasks"
+    routerLinkActive="active"
+  >
+    Tasks
+  </a>
+
+  <a
+    mat-button
+    routerLink="/completed"
+    routerLinkActive="active"
+  >
+    Completed
+  </a>
+
+  <a
+    mat-button
+    routerLink="/reports"
+    routerLinkActive="active"
+  >
+    Reports
+  </a>
+</mat-toolbar>
+
+<div class="page-container">
+  <router-outlet></router-outlet>
+</div>

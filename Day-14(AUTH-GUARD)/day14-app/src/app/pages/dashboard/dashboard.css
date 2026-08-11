@@ -1,0 +1,108 @@
+.dashboard {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f4f7fb;
+  box-sizing: border-box;
+}
+
+.header {
+  max-width: 1100px;
+  margin: 0 auto 35px;
+  padding: 35px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  color: #2563eb;
+  font-size: 42px;
+}
+
+.header p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #555;
+}
+
+.logout-btn {
+  padding: 13px 25px;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+}
+
+.cards {
+  max-width: 1100px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  color: #2563eb;
+  margin-top: 0;
+}
+
+.card p {
+  line-height: 1.7;
+  color: #444;
+}
+
+.test-btn {
+  margin-top: 15px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.test-btn:hover {
+  background: #1d4ed8;
+}
+
+.response {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 800px) {
+
+  .dashboard {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+}

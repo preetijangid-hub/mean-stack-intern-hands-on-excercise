@@ -1,0 +1,13 @@
+.spacer {
+  flex: 1;
+}
+
+.page-container {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  box-sizing: border-box;
+}
+
+a.active {
+  font-weight: 700;
+}

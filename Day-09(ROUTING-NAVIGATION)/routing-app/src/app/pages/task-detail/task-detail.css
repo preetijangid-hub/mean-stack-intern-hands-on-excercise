@@ -1,0 +1,21 @@
+.page {
+  background: white;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.task-id {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 12px 18px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+}

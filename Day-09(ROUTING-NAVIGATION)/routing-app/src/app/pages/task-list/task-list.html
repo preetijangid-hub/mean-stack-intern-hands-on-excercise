@@ -1,0 +1,24 @@
+<section class="page">
+  <h1>Task List</h1>
+
+  @if (selectedStatus) {
+    <p>
+      Filter:
+      <strong>{{ selectedStatus }}</strong>
+    </p>
+  }
+
+  <div class="task-list">
+    @for (task of tasks; track task.id) {
+      <article class="task-card">
+        <h2>{{ task.title }}</h2>
+
+        <p>Status: {{ task.status }}</p>
+
+        <a [routerLink]="['/tasks', task.id]">
+          View Details
+        </a>
+      </article>
+    }
+  </div>
+</section>
