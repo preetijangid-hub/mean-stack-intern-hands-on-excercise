@@ -1,98 +1,311 @@
-MEAN Stack Hands-on Exercises
+🚀 MEAN Stack Internship — Hands-on Exercises
 
-This repository contains the daily hands-on exercises completed duringthe 6-week MEAN Stack learning plan.
+📌 Repository Overview
 
-Important: This repository is separate from the TaskFlow ProjectBuild. Hands-on exercises are individual learning tasks; ProjectBuild is the continuous TaskFlow application.
+This repository contains the daily hands-on exercises completed during the MEAN Stack internship.
 
-########################################Week 1 --- JavaScript & TypeScript Foundations
+Important: This repository is separate from the TaskFlow Project Build repository.Hands-on exercises are individual learning tasks, while Project Build is the continuous TaskFlow application.
 
-## Day 1 --- JavaScript Basics
+📅 Week 1 — JavaScript & TypeScript Foundations
 
-Topics: variables, let/const, scope, == vs ===,truthy/falsy, operators, conditions, loops, functions.
+Day 1 — JavaScript Basics
+
+Topics
+
+Variables
+
+let and const
+
+Scope
+
+== vs ===
+
+Truthy and falsy values
+
+Operators
+
+Conditions
+
+Loops
+
+Functions
 
 Exercise
 
-Build: 1. FizzBuzz 2. Temperature Converter
+Build:
 
-FizzBuzz checks divisibility by 3 and 5 and returns Fizz, Buzz,FizzBuzz, or the number.
+FizzBuzz
 
-The temperature converter uses reusable functions with input validation.
+Temperature Converter
 
-Practiced: functions, parameters, return values, conditions , validation, manual testing.
+FizzBuzz
 
-Run:
+Checks divisibility by 3 and 5 and returns:
+
+Fizz
+Buzz
+FizzBuzz
+Number
+
+Temperature Converter
+
+Implemented reusable conversion functions with input validation.
+
+Practiced
+
+Functions
+
+Parameters
+
+Return values
+
+Conditions
+
+Validation
+
+Manual testing
+
+Run
 
 node script.js
 
-## Day 2 --- Functions, Arrays & Objects (ES6)
+Day 2 — Functions, Arrays & Objects
 
-Topics: arrow functions, this, destructuring , spread/rest, defaultparameters, map, filter, reduce, chaining, immutability.
+Topics
+
+Arrow functions
+
+this
+
+Destructuring
+
+Spread/rest operators
+
+Default parameters
+
+map()
+
+filter()
+
+reduce()
+
+Method chaining
+
+Immutability
 
 Exercise
 
-Solve 10 array-method problems using map, filter, and reduce.
+Solved array-method problems using:
 
-Requirements: - No traditional loops. - Do not mutate input arrays. -Use array methods and chaining.
+map()
+filter()
+reduce()
 
-Example:
+Requirements
 
-Input → filter() → map() → reduce() → Result
+No traditional loops
 
-Run:
+Do not mutate input arrays
+
+Use array methods
+
+Use method chaining where appropriate
+
+Example Flow
+
+Input
+  ↓
+filter()
+  ↓
+map()
+  ↓
+reduce()
+  ↓
+Result
+
+Run
 
 node script.js
 
-## Day 3 --- Async JavaScript
+Day 3 — Async JavaScript
 
-Topics: event loop, callbacks, promises, async/await, try/catch,Fetch API.
+Topics
+
+Event loop
+
+Callbacks
+
+Promises
+
+async/await
+
+try/catch
+
+Fetch API
+
+Promise.all()
 
 Exercise
 
 Fetch data from a public API using async/await.
 
-Implemented: - API request - Loading flag - Error handling - Successhandling - Two requests using Promise.all()
+Implemented
 
-Flow:
+API request
 
-Request → Loading → await fetch() → Success/Error → Loading false
+Loading state
 
-Run:
+Error handling
+
+Success handling
+
+Multiple requests using Promise.all()
+
+Flow
+
+Request
+   ↓
+Loading
+   ↓
+await fetch()
+   ↓
+Success / Error
+   ↓
+Loading false
+
+Run
 
 node script.js
 
-## Day 4 --- TypeScript Fundamentals
+Day 4 — TypeScript Conversion
 
-Topics: types, interfaces vs type, unions, literals, enums,generics, strict mode, tsconfig.
+Topics
+
+TypeScript types
+
+Function parameter types
+
+Return types
+
+Interfaces
+
+Type aliases
+
+Strict mode
+
+tsconfig.json
 
 Exercise
 
-Convert a JavaScript module to strict TypeScript.
+Converted a JavaScript module to strict TypeScript.
 
-Requirements: - Type every parameter. - Type every return value. -Remove unnecessary any. - Use interfaces/types appropriately. - Enablestrict checking.
+Requirements
 
-Example:
+Type every parameter
+
+Type every return value
+
+Remove unnecessary any
+
+Use interfaces/types appropriately
+
+Enable strict checking
+
+Example
 
 function add(a: number, b: number): number {
   return a + b;
 }
 
-Compile:
+Compile
 
 npx tsc
 
-## Day 5 --- Node.js, npm & Modules
+Day 4 — TypeScript Fundamentals
 
-Topics: Node runtime, npm, scripts, CommonJS vs ES modules,package.json, JSON read/write.
+Topics
+
+Types
+
+Interfaces vs type
+
+Union types
+
+Literal types
+
+Enums
+
+Generics
+
+Strict mode
+
+tsconfig
 
 Exercise
 
-Create a Node CLI that: 1. Reads a JSON file. 2. Transforms the data. 3.Writes the result. 4. Runs through an npm script.
+Practiced TypeScript fundamentals and type-safe programming concepts.
 
-Flow:
+Practiced
 
-JSON → Node script → Transform → Output
+Type annotations
 
-Run:
+Interfaces
+
+Type aliases
+
+Unions
+
+Enums
+
+Generics
+
+Strict TypeScript configuration
+
+Day 5 — Node.js CLI
+
+Topics
+
+Node.js runtime
+
+npm
+
+npm scripts
+
+Modules
+
+CommonJS
+
+ES modules
+
+package.json
+
+JSON read/write
+
+File-system operations
+
+Exercise
+
+Created a Node CLI that:
+
+Reads a JSON file
+
+Transforms the data
+
+Writes the result
+
+Runs through an npm script
+
+Flow
+
+JSON
+ ↓
+Node Script
+ ↓
+Transform
+ ↓
+Output
+
+Run
 
 npm install
 npm run <script-name>
@@ -101,53 +314,145 @@ or:
 
 node app.js
 
-################################################## Week 2 --- Angular Fundamentals
+Day 5 — Node.js, npm & Modules
 
-## Day 6 --- Angular Setup & Components
+Topics
 
-Topics: Angular CLI, project structure, standalone components,templates, styles, signals.
+Node.js runtime
+
+npm
+
+package.json
+
+Modules
+
+CommonJS
+
+ES modules
+
+JSON processing
+
+npm scripts
 
 Exercise
 
-Create two Angular components and render a small dashboard card drivenby a signal value.
+Practiced Node.js project setup, npm dependencies, modules and JSON processing.
 
-Practiced: components, templates, styles, signals and basic stateupdates.
+📅 Week 2 — Angular Fundamentals
 
-Run:
+Day 6 — Angular Dashboard
+
+Topics
+
+Angular CLI
+
+Angular project structure
+
+Standalone components
+
+Templates
+
+Styles
+
+Signals
+
+Basic state management
+
+Exercise
+
+Created an Angular dashboard containing reusable dashboard components and a card driven by signal-based state.
+
+Practiced
+
+Components
+
+Templates
+
+Styles
+
+Signals
+
+Basic state updates
+
+Run
 
 npm install
 ng serve
 
-Open http://localhost:4200.
+Open:
 
-## Day 7 --- Templates & Directives
+http://localhost:4200
 
-Topics: interpolation, property/event binding, @if, @for,track, @switch, ngClass, ngStyle.
+Day 7 — Angular Todo App
 
-Exercise --- Todo List UI
+Topics
 
-Build a Todo List UI with: - Todo items - @for rendering - track -Filter buttons - Empty state - No backend
+Interpolation
 
-Filters:
+Property binding
+
+Event binding
+
+@if
+
+@for
+
+track
+
+@switch
+
+ngClass
+
+ngStyle
+
+Exercise — Todo List UI
+
+Built a Todo List UI with:
+
+Todo items
+
+@for rendering
+
+track
+
+Filter buttons
+
+Empty state
+
+No backend
+
+Filters
 
 All | Active | Completed
 
-When no task matches the filter, display an empty-state message.
+When no task matches the selected filter, an empty-state message is displayed.
 
-Run:
+Run
 
 npm install
 ng serve
 
-## Day 8 --- Component Communication & Dependency Injection
+Day 8 — Component Communication
 
-Topics: @Input, @Output, signal inputs, services, DependencyInjection, providedIn: 'root'.
+Topics
 
-Exercise --- Shared Counter
+@Input
 
-Share state between parent and child through an injectable service soboth components stay synchronized.
+@Output
 
-Structure:
+Signal inputs
+
+Services
+
+Dependency Injection
+
+providedIn: 'root'
+
+Exercise — Shared Counter
+
+Created a shared counter using an injectable service so parent and child components remain synchronized.
+
+Structure
 
 Parent Component
        ↓
@@ -155,178 +460,526 @@ Shared Service
        ↑
 Child Component
 
-Implemented: - Shared counter - Increase/decrease actions -Parent-to-child synchronized state - Signal-based shared state
+Implemented
 
-Example:
+Shared counter
 
-Parent Component
-Counter: 6
-[Increase] [Decrease]
+Increase/decrease actions
 
-Child Component
-Shared Counter: 6
+Parent-to-child state synchronization
 
-Run:
+Signal-based shared state
+
+Run
 
 npm install
 ng serve
 
-Important: Hands-on Day 8 is Component Communication + SharedService. It is different from Project Build Day 8, which isTaskService + Add/Edit/Delete.
+Note: Hands-on Day 8 is Component Communication + Shared Service.Project Build Day 8 is a separate TaskService + Add/Edit/Delete + Shared Task State implementation.
 
-## Day 9 --- Routing & Navigation
+Day 9 — Routing & Navigation
 
-Topics: routes, routerLink, route params, query params, lazyloading, wildcard 404.
+Topics
 
-Exercise --- Multi-route App
+Angular routes
 
-Add:
+routerLink
+
+Route parameters
+
+Query parameters
+
+Lazy loading
+
+Wildcard 404 route
+
+Exercise — Multi-route App
+
+Added:
 
 /login
 /board
 /task/:id
 
-Implemented: - Login route - Board route - Task detail route -routerLink navigation - Route parameters - Query parameters - Onelazy-loaded route - Wildcard 404 route
+Implemented
 
-Example:
+Login route
+
+Board route
+
+Task detail route
+
+routerLink navigation
+
+Route parameters
+
+Query parameters
+
+Lazy-loaded route
+
+Wildcard 404 route
+
+Example
 
 /task/10
 
-where 10 is the task ID.
+where 10 represents the task ID.
 
 Unknown URLs display a 404 page.
 
-Run:
+Run
 
 npm install
 ng serve
 
-## Day 10 --- Forms & Validation
+Day 10 — Forms & Validation
 
-Topics: Reactive Forms, FormBuilder, validators, customvalidators, error messages, dirty/touched state.
+Topics
 
-Exercise --- Reactive Signup Form
+Reactive Forms
 
-Build a signup form with: - Name - Email - Password - Confirm Password
+FormBuilder
 
-Implemented: - Required validation - Email validation - Passwordvalidation - Custom password-match validator - Per-field errormessages - dirty / touched / valid / invalid states
+Validators
 
-Password rule:
+Custom validators
+
+Error messages
+
+Dirty/touched state
+
+Valid/invalid state
+
+Exercise — Reactive Signup Form
+
+Built a signup form with:
+
+Name
+
+Email
+
+Password
+
+Confirm Password
+
+Implemented
+
+Required validation
+
+Email validation
+
+Password validation
+
+Custom password-match validator
+
+Per-field error messages
+
+dirty
+
+touched
+
+valid
+
+invalid
+
+Password Rule
 
 Password === Confirm Password
 
-Run:
+Run
 
 npm install
 ng serve
 
-################################################################# Week 3 --- Angular in Depth
+📅 Week 3 — Angular In Depth
 
-## Day 11 --- HttpClient & REST
+Day 11 — HttpClient & REST
 
-Topics: provideHttpClient, GET/POST/PUT/DELETE, typed responses,Observables, async pipe.
+Topics
 
-Exercise --- Public API Data
+provideHttpClient
 
-Fetch and display typed data from a public API using Angular HttpClientand the async pipe.
+GET
 
-Implemented: - HTTP GET - Typed interface/model - Observable - Asyncpipe - Loading state - Error state
+POST
 
-Flow:
+PUT
 
-Component → HttpClient → REST API → Observable → async pipe → UI
+DELETE
 
-Run:
+Typed responses
+
+Observables
+
+Async pipe
+
+Exercise — Public API Data
+
+Fetched and displayed typed data from a public API using Angular HttpClient and the async pipe.
+
+Implemented
+
+HTTP GET
+
+Typed interface/model
+
+Observable
+
+Async pipe
+
+Loading state
+
+Error state
+
+Flow
+
+Component
+    ↓
+HttpClient
+    ↓
+REST API
+    ↓
+Observable
+    ↓
+async pipe
+    ↓
+UI
+
+Run
 
 npm install
 ng serve
 
-## Day 12 --- RxJS in Practice
+Day 12 — RxJS in Practice
 
-Topics: Observable vs Promise, map, filter, switchMap,debounceTime, combineLatest, takeUntilDestroyed.
+Topics
 
-Exercise --- Search Box
+Observable vs Promise
 
-Build a search box that: 1. Accepts input. 2. Debounces typing. 3. Callsan API. 4. Uses switchMap. 5. Cancels stale requests. 6. Handleserrors. 7. Displays latest results.
+map
 
-Flow:
+filter
 
-Input → debounceTime → switchMap → API → Results
+switchMap
 
-Run:
+debounceTime
+
+combineLatest
+
+takeUntilDestroyed
+
+Exercise — Search Box
+
+Built a search box that:
+
+Accepts user input
+
+Debounces typing
+
+Calls an API
+
+Uses switchMap
+
+Cancels stale requests
+
+Handles errors
+
+Displays the latest results
+
+Flow
+
+Input
+  ↓
+debounceTime
+  ↓
+switchMap
+  ↓
+API
+  ↓
+Results
+
+Run
 
 npm install
 ng serve
 
-## Day 13 --- Pipes, Custom Directives & Lifecycle
+Day 13 — Pipes, Directives & Lifecycle
 
-Topics: built-in pipes, pure/impure pipes, custom pipes, attributedirectives, HostListener, ngOnInit, ngOnDestroy.
+Topics
+
+Built-in pipes
+
+Pure pipes
+
+Impure pipes
+
+Custom pipes
+
+Attribute directives
+
+HostListener
+
+ngOnInit
+
+ngOnDestroy
 
 Exercise
 
-Create: 1. A custom timeAgo pipe. 2. A highlight-on-hover directive.
+Created:
 
-timeAgo converts dates into readable text such as:
+A custom timeAgo pipe
+
+A highlight-on-hover directive
+
+Custom Pipe
+
+Converts dates into readable text.
+
+Example:
 
 2 hours ago
 
-The highlight directive changes the element appearance when the mouse isover it using HostListener.
+Highlight Directive
 
-Also practice:
+Changes the appearance of an element when the mouse moves over it using HostListener.
+
+Lifecycle Practice
+
+Practiced:
 
 ngOnInit
 ngOnDestroy
 
-Run:
+Run
 
 npm install
 ng serve
 
-## Day 14 --- Guards, Interceptors & Shared State
+Day 14 — Guards, Interceptors & Shared State
 
-Topics: functional route guards, HTTP interceptors, auth headers,shared signal/service state.
+Topics
+
+Functional route guards
+
+HTTP interceptors
+
+Authentication headers
+
+Shared signal/service state
+
+HTTP 401 handling
 
 Exercise
 
-Build: 1. An auth guard for a protected route. 2. An HTTP interceptorthat attaches a token. 3. Handling for HTTP 401 Unauthorized.
+Built:
 
-Protected example:
+An authentication guard for a protected route
+
+An HTTP interceptor that attaches a token
+
+Handling for HTTP 401 Unauthorized
+
+Protected Route
 
 /board
 
-Interceptor concept:
+Interceptor Concept
 
 Authorization: Bearer <token>
 
-On 401, handle authentication failure appropriately.
+Implemented
 
-Run:
+Protected route
 
-npm install
-ng serve
+Auth guard
 
-## Day 15 --- Angular Material + Review
+Token attachment
 
-Topics: Angular Material, toolbar, cards, inputs, table, theming,accessibility basics.
+HTTP interceptor
 
-Exercise --- Material Todo App
+Unauthorized response handling
 
-Restyle the Todo application using Angular Material.
+Shared authentication state
 
-Use Material components for: - Toolbar - Cards - Form fields - Buttons -Inputs
-
-Also improve: - Board layout - Responsiveness - Visual consistency -Accessibility warnings
-
-Run:
+Run
 
 npm install
 ng serve
 
-###### Running Angular Exercises
+Day 14 — Guards, Interceptors & State
+
+Topics
+
+Route protection
+
+Authentication state
+
+Functional guards
+
+HTTP interceptors
+
+Shared state
+
+Error handling
+
+Exercise
+
+Practiced combining route protection, HTTP request processing and shared application state.
+
+Day 15 — Angular Material + Review
+
+Topics
+
+Angular Material
+
+Toolbar
+
+Cards
+
+Inputs
+
+Form fields
+
+Buttons
+
+Tables
+
+Theming
+
+Accessibility basics
+
+Exercise — Material Todo App
+
+Restyled the Todo application using Angular Material.
+
+Material Components
+
+Toolbar
+
+Cards
+
+Form fields
+
+Buttons
+
+Inputs
+
+Improvements
+
+Board layout
+
+Responsiveness
+
+Visual consistency
+
+Accessibility warnings
+
+Better spacing
+
+Consistent UI
+
+Run
+
+npm install
+ng serve
+
+📅 Week 4 — Node.js Deeper Concepts
+
+Day 16 — Node.js Deeper
+
+Topics
+
+Node.js deeper concepts
+
+CLI application development
+
+File-system operations
+
+JSON data handling
+
+npm scripts
+
+Node modules
+
+Command-line arguments
+
+Persistent local data
+
+Exercise — CLI Note Tool
+
+Built a Node.js command-line note management tool.
+
+Project
+
+Day-16(NODE-DEEPER)/
+└── cli-note-tool/
+    ├── app.js
+    ├── notes.json
+    ├── package.json
+    ├── README.md
+    ├── .gitignore
+    └── .gitattributes
+
+Purpose
+
+The CLI note tool demonstrates how Node.js can be used to build a small command-line application that works with local JSON data.
+
+Implemented
+
+Node.js CLI workflow
+
+JSON-based notes storage
+
+File-system based data handling
+
+Note operations through the CLI
+
+npm project configuration
+
+Command-line execution
+
+Persistent local note data
+
+Data Flow
+
+CLI Command
+     ↓
+Node.js app.js
+     ↓
+Read notes.json
+     ↓
+Process Note
+     ↓
+Write Updated Data
+     ↓
+notes.json
+
+Run
+
+Install dependencies:
+
+npm install
+
+Run the application using the configured npm script or Node.js:
+
+node app.js
+
+Learning Outcome
+
+Day 16 strengthened Node.js fundamentals by moving from simple scripts to a small practical CLI application using file handling, JSON persistence and npm project configuration.
+
+▶️ Running Angular Exercises
 
 Go to the required Angular project:
 
 cd <project-folder>
+
+Install dependencies:
+
 npm install
+
+Start Angular:
+
 ng serve
 
 Open:
@@ -337,90 +990,405 @@ If Angular CLI is not installed globally:
 
 npx ng serve
 
-Running JavaScript / Node Exercises
+▶️ Running JavaScript / Node.js Exercises
+
+For a JavaScript file:
 
 node script.js
 
-or:
+For a Node.js application:
 
 node app.js
 
-For npm projects:
+For an npm project:
 
 npm install
 npm run <script-name>
 
-GitHub Workflow
+🔀 GitHub Workflow
 
-Hands-on work is pushed to the hands-on branch.
+Hands-on work is maintained on the:
 
-git checkout hands-on
+hands-on
+
+branch.
+
+Check Current Branch
+
+git branch --show-current
+
+Check Status
+
+git status
+
+Stage Changes
+
 git add .
-git commit -m "Day 11 Hands-on: HttpClient and REST API"
+
+Commit
+
+git commit -m "Day 16 Hands-on: Node deeper CLI note tool"
+
+Push
+
 git push origin hands-on
 
-Example commit messages:
+📂 Repository Structure
 
-Day 1 Hands-on: FizzBuzz and temperature converter
-Day 2 Hands-on: Array methods
-Day 3 Hands-on: Async JavaScript and Fetch API
-Day 4 Hands-on: TypeScript conversion
-Day 5 Hands-on: Node CLI
-Day 6 Hands-on: Angular components
-Day 7 Hands-on: Todo list UI
-Day 8 Hands-on: Component communication and shared service
-Day 9 Hands-on: Angular routing
-Day 10 Hands-on: Reactive forms and validation
-Day 11 Hands-on: HttpClient and REST API
-Day 12 Hands-on: RxJS search
-Day 13 Hands-on: Custom pipe and directive
-Day 14 Hands-on: Guards and interceptors
-Day 15 Hands-on: Angular Material
+The current Hands-on repository contains the daily exercises from Day 1 through Day 16.
 
-Repository Structure
-
-mean-stack-hands-on/
-├── Day-01(FIZZBUZZ)/
-├── Day-01(TEMPERATURE-CONVERTER)/
-├── Day-02(ARRAY-METHODS)/
+hands-on/
+│
+├── Day-01(JAVASCRIPT-BASICS)/
+├── Day-02(FUNCTIONS-ARRAYS-OBJECTS)/
+├── Day-03(ASYNC-JAVASCRIPT)/
 ├── Day-03(TODO-APP)/
 ├── Day-04(TYPESCRIPT-CONVERSION)/
+├── Day-04(TYPESCRIPT-FUNDAMENTALS)/
 ├── Day-05(NODE-CLI)/
+├── Day-05(NODE-NPM-MODULES)/
 ├── Day-06(ANGULAR-DASHBOARD)/
 ├── Day-07(ANGULAR-TODO)/
 ├── Day-08(COMPONENT-COMMUNICATION)/
-├── Day-09(ROUTING-PROJECT)/
+├── Day-09(ROUTING-NAVIGATION)/
 ├── Day-10(FORMS-VALIDATION)/
 ├── Day-11(HTTPCLIENT-REST)/
-├── Day-12(RXJS)/
-├── Day-13(PIPES-DIRECTIVES)/
-├── Day-14(GUARDS-INTERCEPTORS)/
-├── Day-15(ANGULAR-MATERIAL)/
+├── Day-12(RXJS-IN-PRACTICE)/
+├── Day-13(PIPES-DIRECTIVES-LIFECYCLE)/
+├── Day-14(AUTH-GUARD)/
+├── Day-14(GUARDS-INTERCEPTORS-STATE)/
+├── Day-15(ANGULAR-MATERIAL-REVIEW)/
+├── Day-16(NODE-DEEPER)/
+│   └── cli-note-tool/
+│
 └── README.md
 
-Folder names may vary according to the local project setup.
+Folder names may vary slightly according to the local project setup. The structure above reflects the current hands-on folders.
 
-Hands-on Learning Outcome
+📚 Hands-on Learning Outcomes
 
-By completing these exercises, the following areas are practiced:
+By completing these exercises, the following areas are practiced.
 
 JavaScript
 
-Variables, functions, arrays, objects, ES6, async JavaScript, promisesand Fetch API.
+Variables
+
+Functions
+
+Arrays
+
+Objects
+
+ES6 features
+
+Async JavaScript
+
+Promises
+
+Fetch API
+
+Error handling
+
+Array methods
+
+Immutability
 
 TypeScript
 
-Types, interfaces, unions, enums, generics, strict mode and tsconfig.
+Types
+
+Interfaces
+
+Type aliases
+
+Union types
+
+Literal types
+
+Enums
+
+Generics
+
+Strict mode
+
+tsconfig
 
 Node.js
 
-Node runtime, npm, modules, JSON processing and CLI scripts.
+Node.js runtime
+
+npm
+
+Modules
+
+CommonJS
+
+ES modules
+
+JSON processing
+
+File-system operations
+
+CLI applications
+
+npm scripts
+
+Persistent local data
 
 Angular
 
-Components, templates, control flow, signals, services, DependencyInjection, component communication, routing, Reactive Forms, HttpClient,RxJS, pipes, directives, lifecycle hooks, guards, interceptors andAngular Material.
+Components
 
+Templates
 
-Project Build Day 8 focuses on: - TaskService - Add task - Edit task -Delete task - Shared task state
+Data binding
 
-The two tracks should remain separate.
+Control flow
+
+Signals
+
+Services
+
+Dependency Injection
+
+Component communication
+
+Routing
+
+Reactive Forms
+
+Validation
+
+HttpClient
+
+REST API
+
+RxJS
+
+Pipes
+
+Directives
+
+Lifecycle hooks
+
+Guards
+
+Interceptors
+
+Angular Material
+
+Responsive UI
+
+Accessibility basics
+
+🔗 Project Build vs Hands-on
+
+These repositories/tracks are intentionally separate.
+
+Hands-on Repository
+
+Contains individual exercises used to practice daily concepts.
+
+Examples:
+
+FizzBuzz
+Array methods
+Async JavaScript
+TypeScript conversion
+Node CLI
+Angular Dashboard
+Todo App
+Routing
+Reactive Forms
+HttpClient
+RxJS Search
+Custom Pipe
+Directive
+Auth Guard
+Angular Material
+Node CLI Note Tool
+
+Project Build Repository
+
+Contains the continuous TaskFlow application where features are integrated across multiple days.
+
+Examples:
+
+TaskFlow Dashboard
+TaskList
+TaskService
+Add/Edit/Delete Task
+Routing
+Authentication
+Angular Material
+Express Backend
+
+📊 Daily Progress
+
+Day
+
+Area
+
+Main Exercise
+
+Day 1
+
+JavaScript
+
+FizzBuzz + Temperature Converter
+
+Day 2
+
+JavaScript
+
+Array Methods
+
+Day 3
+
+Async JavaScript
+
+Async API / Fetch
+
+Day 4
+
+TypeScript
+
+JavaScript to TypeScript Conversion
+
+Day 4
+
+TypeScript
+
+TypeScript Fundamentals
+
+Day 5
+
+Node.js
+
+Node CLI
+
+Day 5
+
+Node.js
+
+npm + Modules
+
+Day 6
+
+Angular
+
+Angular Dashboard
+
+Day 7
+
+Angular
+
+Todo App
+
+Day 8
+
+Angular
+
+Component Communication
+
+Day 9
+
+Angular
+
+Routing & Navigation
+
+Day 10
+
+Angular
+
+Forms & Validation
+
+Day 11
+
+Angular
+
+HttpClient + REST
+
+Day 12
+
+Angular
+
+RxJS Search
+
+Day 13
+
+Angular
+
+Pipes + Directives + Lifecycle
+
+Day 14
+
+Angular
+
+Auth Guard
+
+Day 14
+
+Angular
+
+Guards + Interceptors + State
+
+Day 15
+
+Angular
+
+Angular Material Review
+
+Day 16
+
+Node.js
+
+Deeper Node CLI Note Tool
+
+✅ Current Status
+
+Hands-on Progress: Day 16 Completed
+
+Current Focus
+
+Node.js Deeper Concepts
+        ↓
+CLI Application
+        ↓
+File System
+        ↓
+JSON Persistence
+        ↓
+npm Scripts
+
+Day 16 Deliverable
+
+CLI Note Tool completed using Node.js with local JSON-based note storage.
+
+🎯 Overall Learning Journey
+
+JavaScript
+    ↓
+TypeScript
+    ↓
+Node.js
+    ↓
+Angular Fundamentals
+    ↓
+Angular Advanced Features
+    ↓
+Authentication & HTTP
+    ↓
+Angular Material
+    ↓
+Node.js Deeper Concepts
+    ↓
+Next Backend / Full-Stack Concepts
+
+🏁 MEAN Stack Hands-on Progress
+
+Days Completed: 1–16
+
+Current Stage: Node.js Deeper Concepts
+
+Next Stage: Continue with backend and full-stack MEAN development.
