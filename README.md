@@ -6,9 +6,10 @@ This repository contains the daily hands-on exercises completed during the MEAN 
 
 Important: This repository is separate from the TaskFlow Project Build repository.Hands-on exercises are individual learning tasks, while Project Build is the continuous TaskFlow application.
 
+________________________________________________________________________________________________
 📅 Week 1 — JavaScript & TypeScript Foundations
 
-Day 1 — JavaScript Basics
+## Day 1 — JavaScript Basics
 
 Topics
 
@@ -68,8 +69,8 @@ Manual testing
 Run
 
 node script.js
-
-Day 2 — Functions, Arrays & Objects
+_________________________________________________________________________________________
+## Day 2 — Functions, Arrays & Objects
 
 Topics
 
@@ -127,7 +128,8 @@ Run
 
 node script.js
 
-Day 3 — Async JavaScript
+___________________________________________________________________________________________
+## Day 3 — Async JavaScript
 
 Topics
 
@@ -177,7 +179,8 @@ Run
 
 node script.js
 
-Day 4 — TypeScript Conversion
+_____________________________________________________________________________________________
+## Day 4 — TypeScript Conversion
 
 Topics
 
@@ -261,7 +264,8 @@ Generics
 
 Strict TypeScript configuration
 
-Day 5 — Node.js CLI
+__________________________________________________________________________________________________
+## Day 5 — Node.js CLI
 
 Topics
 
@@ -314,7 +318,7 @@ or:
 
 node app.js
 
-Day 5 — Node.js, npm & Modules
+## Day 5 — Node.js, npm & Modules
 
 Topics
 
@@ -340,7 +344,8 @@ Practiced Node.js project setup, npm dependencies, modules and JSON processing.
 
 📅 Week 2 — Angular Fundamentals
 
-Day 6 — Angular Dashboard
+________________________________________________________________________________________________
+## Day 6 — Angular Dashboard
 
 Topics
 
@@ -383,7 +388,8 @@ Open:
 
 http://localhost:4200
 
-Day 7 — Angular Todo App
+_____________________________________________________________________________________________________
+## Day 7 — Angular Todo App
 
 Topics
 
@@ -432,7 +438,8 @@ Run
 npm install
 ng serve
 
-Day 8 — Component Communication
+__________________________________________________________________________________________________
+## Day 8 — Component Communication
 
 Topics
 
@@ -477,7 +484,8 @@ ng serve
 
 Note: Hands-on Day 8 is Component Communication + Shared Service.Project Build Day 8 is a separate TaskService + Add/Edit/Delete + Shared Task State implementation.
 
-Day 9 — Routing & Navigation
+__________________________________________________________________________________________________
+## Day 9 — Routing & Navigation
 
 Topics
 
@@ -532,7 +540,8 @@ Run
 npm install
 ng serve
 
-Day 10 — Forms & Validation
+________________________________________________________________________________________________
+## Day 10 — Forms & Validation
 
 Topics
 
@@ -591,9 +600,10 @@ Run
 npm install
 ng serve
 
-📅 Week 3 — Angular In Depth
+__________________________________________________________________________________________________
+## 📅 Week 3 — Angular In Depth
 
-Day 11 — HttpClient & REST
+## Day 11 — HttpClient & REST
 
 Topics
 
@@ -650,7 +660,8 @@ Run
 npm install
 ng serve
 
-Day 12 — RxJS in Practice
+____________________________________________________________________________________________________
+## Day 12 — RxJS in Practice
 
 Topics
 
@@ -703,7 +714,8 @@ Run
 npm install
 ng serve
 
-Day 13 — Pipes, Directives & Lifecycle
+____________________________________________________________________________________________________
+## Day 13 — Pipes, Directives & Lifecycle
 
 Topics
 
@@ -755,7 +767,8 @@ Run
 npm install
 ng serve
 
-Day 14 — Guards, Interceptors & Shared State
+_____________________________________________________________________________________________________
+## Day 14 — Guards, Interceptors & Shared State
 
 Topics
 
@@ -806,7 +819,8 @@ Run
 npm install
 ng serve
 
-Day 14 — Guards, Interceptors & State
+_____________________________________________________________________________________________________
+## Day 14 — Guards, Interceptors & State
 
 Topics
 
@@ -826,7 +840,8 @@ Exercise
 
 Practiced combining route protection, HTTP request processing and shared application state.
 
-Day 15 — Angular Material + Review
+_____________________________________________________________________________________________________
+## Day 15 — Angular Material + Review
 
 Topics
 
@@ -883,9 +898,10 @@ Run
 npm install
 ng serve
 
-📅 Week 4 — Node.js Deeper Concepts
+_____________________________________________________________________________________________________
+## 📅 Week 4 — Node.js Deeper Concepts
 
-Day 16 — Node.js Deeper
+## Day 16 — Node.js Deeper
 
 Topics
 
@@ -968,6 +984,45 @@ Learning Outcome
 
 Day 16 strengthened Node.js fundamentals by moving from simple scripts to a small practical CLI application using file handling, JSON persistence and npm project configuration.
 
+____________________________________________________________________________________________________
+## Day 17 — Express Basics
+
+### Topics Studied
+- Introduction to Express.js
+- Express application setup
+- Creating an Express server
+- Starting a server with `app.listen()`
+- HTTP request and response handling
+- Express routes
+- GET requests
+- Route parameters
+- Organizing routes into separate files
+- Express Router
+- Basic API structure
+- Middleware / request handling basics
+- Working with JSON responses
+
+### Hands-on Exercise
+
+Built an **Express.js REST API** named `express-basics`.
+
+#### Project Structure
+- `server.js` — Express server setup and API entry point
+- `routes/tasks.js` — Task-related routes
+- `routes/users.js` — User-related routes
+- `package.json` — Project dependencies and scripts
+- `package-lock.json` — Dependency lock file
+
+### What I Practiced
+- Created an Express application
+- Configured and started the Express server
+- Created separate route modules for users and tasks
+- Used Express routing to handle API requests
+- Returned API responses in JSON format
+- Organized the application into a basic scalable route structure
+
+### Outcome
+Successfully built and structured a basic Express.js backend API with separate user and task routes.
 ▶️ Running Angular Exercises
 
 Go to the required Angular project:
