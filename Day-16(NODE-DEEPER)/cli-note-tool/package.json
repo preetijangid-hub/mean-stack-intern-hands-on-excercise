@@ -1,0 +1,13 @@
+{
+  "name": "cli-note-tool",
+  "version": "1.0.0",
+  "description": "CLI note tool using Node.js fs/promises",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "add": "node app.js add",
+    "list": "node app.js list",
+    "delete": "node app.js delete"
+  },
+  "type": "commonjs"
+}
