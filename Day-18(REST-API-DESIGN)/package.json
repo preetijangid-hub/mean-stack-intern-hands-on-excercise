@@ -1,0 +1,20 @@
+{
+  "name": "day-18-rest-api-design",
+  "version": "1.0.0",
+  "description": "REST API CRUD project using Express.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "rest-api",
+    "express",
+    "crud",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
