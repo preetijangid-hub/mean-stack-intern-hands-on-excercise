@@ -1020,6 +1020,349 @@ Built an **Express.js REST API** named `express-basics`.
 - Used Express routing to handle API requests
 - Returned API responses in JSON format
 - Organized the application into a basic scalable route structure
+________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+# Day 18 — REST API Design
+
+## 📌 Overview
+
+Day 18 focused on designing and implementing a RESTful API using **Node.js** and **Express.js**.
+
+The hands-on exercise demonstrates a complete **in-memory CRUD API for tasks**, including REST conventions, HTTP methods, status codes, route parameters, and query-based filtering.
+
+---
+
+## 🎯 Topics Covered
+
+* REST API architecture and design
+* REST resources and nouns
+* RESTful URL conventions
+* HTTP methods:
+
+  * `GET`
+  * `POST`
+  * `PUT`
+  * `DELETE`
+* HTTP status codes
+* Route parameters
+* Query parameters
+* Express routing
+* JSON request and response handling
+* CRUD operations
+* In-memory data storage
+* API error handling
+
+---
+
+## 🔑 REST API Concepts
+
+### Resources & Nouns
+
+REST APIs represent resources using nouns in URLs.
+
+Example:
+
+```text
+/api/tasks
+```
+
+Instead of action-based URLs such as:
+
+```text
+/api/getTasks
+/api/createTask
+```
+
+### HTTP Methods
+
+| Method | Purpose                     |
+| ------ | --------------------------- |
+| GET    | Retrieve resources          |
+| POST   | Create a new resource       |
+| PUT    | Update an existing resource |
+| DELETE | Delete a resource           |
+
+---
+
+## 📊 HTTP Status Codes Used
+
+| Status Code | Meaning     | Usage                         |
+| ----------- | ----------- | ----------------------------- |
+| `200`       | OK          | Successful GET/PUT request    |
+| `201`       | Created     | Successful POST request       |
+| `204`       | No Content  | Successful DELETE request     |
+| `400`       | Bad Request | Invalid request data          |
+| `404`       | Not Found   | Requested task does not exist |
+
+---
+
+## 🔍 Route Parameters vs Query Parameters
+
+### Route Parameter
+
+Used to identify a specific resource:
+
+```text
+GET /api/tasks/1
+```
+
+Here, `1` is the task ID.
+
+### Query Parameter
+
+Used for filtering or modifying the result:
+
+```text
+GET /api/tasks?completed=true
+```
+
+This returns only completed tasks.
+
+---
+
+# 🛠️ Hands-on Exercise
+
+## In-Memory CRUD API for Tasks
+
+A REST API was created using Express.js to manage tasks.
+
+The API supports:
+
+* Fetching all tasks
+* Fetching a single task
+* Creating a task
+* Updating a task
+* Deleting a task
+* Filtering tasks using query parameters
+* Proper HTTP status codes
+* Handling missing resources with `404`
+* Validating required task title with `400`
+
+---
+
+## 📁 Project Structure
+
+```text
+Day-18(REST-API-DESIGN)/
+│
+├── node_modules/
+├── package-lock.json
+├── package.json
+├── server.js
+├── .gitignore
+└── README.md
+```
+
+---
+
+## 🚀 Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the server:
+
+```bash
+node server.js
+```
+
+Server runs at:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# 🔗 API Endpoints
+
+## 1. Get All Tasks
+
+```http
+GET /api/tasks
+```
+
+Returns all tasks.
+
+Example:
+
+```text
+http://localhost:3000/api/tasks
+```
+
+---
+
+## 2. Filter Tasks
+
+```http
+GET /api/tasks?completed=true
+```
+
+Returns completed tasks.
+
+For incomplete tasks:
+
+```http
+GET /api/tasks?completed=false
+```
+
+---
+
+## 3. Get Single Task
+
+```http
+GET /api/tasks/:id
+```
+
+Example:
+
+```text
+GET /api/tasks/1
+```
+
+If the task does not exist:
+
+```json
+{
+  "message": "Task not found"
+}
+```
+
+Response status:
+
+```text
+404 Not Found
+```
+
+---
+
+## 4. Create Task
+
+```http
+POST /api/tasks
+```
+
+Request body:
+
+```json
+{
+  "title": "Build CRUD API"
+}
+```
+
+Successful response:
+
+```text
+201 Created
+```
+
+---
+
+## 5. Update Task
+
+```http
+PUT /api/tasks/:id
+```
+
+Example:
+
+```text
+PUT /api/tasks/1
+```
+
+Request body:
+
+```json
+{
+  "title": "Learn REST API",
+  "completed": true
+}
+```
+
+Successful response:
+
+```text
+200 OK
+```
+
+---
+
+## 6. Delete Task
+
+```http
+DELETE /api/tasks/:id
+```
+
+Example:
+
+```text
+DELETE /api/tasks/2
+```
+
+Successful response:
+
+```text
+204 No Content
+```
+
+If the task does not exist:
+
+```text
+404 Not Found
+```
+
+---
+
+# 🧪 API Testing
+
+The API was tested using the browser and PowerShell HTTP requests.
+
+Example POST request:
+
+```powershell
+Invoke-RestMethod `
+  -Uri "http://localhost:3000/api/tasks" `
+  -Method POST `
+  -ContentType "application/json" `
+  -Body '{"title":"Build CRUD API"}'
+```
+
+Example GET request:
+
+```powershell
+Invoke-RestMethod `
+  -Uri "http://localhost:3000/api/tasks" `
+  -Method GET
+```
+
+---
+
+# ✅ Key Learning Outcomes
+
+After completing Day 18, I understood:
+
+* How REST APIs are structured
+* How resources are represented using URLs
+* How HTTP methods map to CRUD operations
+* How Express routes handle API requests
+* How route parameters identify resources
+* How query parameters are used for filtering
+* How to return appropriate HTTP status codes
+* How to validate request data
+* How to handle `404 Not Found` errors
+* How to build and test an in-memory CRUD API
+
+---
+
+## ⭐ Day 18 Highlights
+
+> **RESTful API Design + Express Routing + CRUD + HTTP Status Codes + Route Parameters + Query Filtering**
+
+The hands-on project successfully implements a task-based REST API using Express.js with proper REST conventions and status-code handling.
+
 
 ### Outcome
 Successfully built and structured a basic Express.js backend API with separate user and task routes.
