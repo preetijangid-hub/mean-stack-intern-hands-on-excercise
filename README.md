@@ -1790,3 +1790,269 @@ Days Completed: 1–16
 Current Stage: Node.js Deeper Concepts
 
 Next Stage: Continue with backend and full-stack MEAN development.
+
+## Day 19 – Validation, Errors & Configuration
+
+## Overview
+
+Day 19 focuses on building a safe and reliable Express.js API using request validation, centralized error handling, environment configuration, CORS, and asynchronous error handling.
+
+## Topics Covered
+
+* Express Error Handling
+* `express-validator`
+* Request/Input Validation
+* Centralized Error Handling Middleware
+* Consistent JSON Error Responses
+* `dotenv` Configuration
+* CORS
+* Async Error Handling
+* 404 Route Handling
+* API Testing using Thunder Client
+
+## Hands-on Exercise
+
+**Add request validation + a central error handler returning consistent JSON errors.**
+
+## Project Structure
+
+```text
+Day-19(VALIDATION-ERRORS-CONFIG)
+└── validation-error-api
+    ├── middleware
+    │   └── errorHandler.js
+    ├── routes
+    │   └── userRoutes.js
+    ├── validators
+    │   └── userValidator.js
+    ├── .env
+    ├── .gitignore
+    ├── package.json
+    ├── package-lock.json
+    └── server.js
+```
+
+## Technologies Used
+
+* Node.js
+* Express.js
+* express-validator
+* dotenv
+* CORS
+* Nodemon
+* Thunder Client
+
+## Installation
+
+Initialize the project:
+
+```bash
+npm init -y
+```
+
+Install dependencies:
+
+```bash
+npm install express express-validator dotenv cors
+```
+
+Install Nodemon:
+
+```bash
+npm install --save-dev nodemon
+```
+
+## Environment Configuration
+
+The `.env` file contains:
+
+```env
+PORT=5000
+NODE_ENV=development
+```
+
+The `.env` file is excluded from Git using `.gitignore`.
+
+## API Endpoints
+
+### Health Check
+
+```http
+GET /
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "message": "Day 19 Validation & Error Handling API is running"
+}
+```
+
+### Create User
+
+```http
+POST /api/users
+```
+
+Valid request:
+
+```json
+{
+  "name": "Preeti",
+  "email": "preeti@example.com",
+  "age": 22
+}
+```
+
+Successful response:
+
+```json
+{
+  "success": true,
+  "message": "User created successfully",
+  "data": {
+    "id": 123456789,
+    "name": "Preeti",
+    "email": "preeti@example.com",
+    "age": 22
+  }
+}
+```
+
+## Request Validation
+
+The API validates:
+
+* Name is required.
+* Name must contain at least 3 characters.
+* Email is required.
+* Email must be valid.
+* Age is required.
+* Age must be at least 18.
+
+Example invalid request:
+
+```json
+{
+  "name": "A",
+  "email": "wrong-email",
+  "age": 15
+}
+```
+
+The API returns a consistent `400 Bad Request` JSON response.
+
+## Centralized Error Handling
+
+All application errors are handled by:
+
+```text
+middleware/errorHandler.js
+```
+
+The common response format is:
+
+```json
+{
+  "success": false,
+  "error": {
+    "message": "Validation failed",
+    "statusCode": 400,
+    "details": []
+  }
+}
+```
+
+## 404 Handling
+
+Invalid routes are also handled centrally.
+
+Example:
+
+```http
+GET /api/unknown
+```
+
+Response:
+
+```json
+{
+  "success": false,
+  "error": {
+    "message": "Route not found: /api/unknown",
+    "statusCode": 404,
+    "details": []
+  }
+}
+```
+
+## Async Error Handling
+
+The user creation route uses `async/await` and forwards errors using:
+
+```javascript
+next(error);
+```
+
+This allows the centralized error middleware to handle asynchronous errors consistently.
+
+## CORS
+
+CORS is enabled using:
+
+```javascript
+app.use(cors());
+```
+
+This allows the API to receive requests from different frontend origins.
+
+## Running the Application
+
+Development mode:
+
+```bash
+npm run dev
+```
+
+Production/start mode:
+
+```bash
+npm start
+```
+
+Server:
+
+```text
+http://localhost:5000
+```
+
+## Testing
+
+The API was tested using Thunder Client for:
+
+* Valid user creation
+* Invalid user input
+* Missing fields
+* Invalid email
+* Invalid age
+* 404 routes
+* Centralized JSON error responses
+
+## Learning Outcome
+
+After completing this exercise, the following concepts were practiced:
+
+* Creating validated Express APIs
+* Validating request bodies
+* Handling errors centrally
+* Returning consistent API responses
+* Using environment variables
+* Enabling CORS
+* Handling asynchronous errors
+* Testing APIs using Thunder Client
+
+## Status
+
+**Day 19 Hands-on – Completed ✅**
