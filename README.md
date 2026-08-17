@@ -2056,3 +2056,501 @@ After completing this exercise, the following concepts were practiced:
 ## Status
 
 **Day 19 Hands-on – Completed ✅**
+
+
+# Day 20 - Auth Basics (JWT)
+
+## 📌 Overview
+
+Day 20 covers the basics of authentication using **bcrypt** and **JSON Web Token (JWT)** with Node.js and Express.js.
+
+In this hands-on exercise, we implemented:
+
+* User Registration
+* Password Hashing
+* User Login
+* Password Verification
+* JWT Token Generation
+* JWT Token Verification
+* Authentication Middleware
+* Protected Routes
+* Error Handling
+
+> **Note:** MongoDB is not used in this Day 20 hands-on implementation. Users are temporarily stored in an in-memory array for learning and testing purposes.
+
+---
+
+## 🛠️ Technologies Used
+
+* Node.js
+* Express.js
+* bcrypt
+* JSON Web Token (jsonwebtoken)
+* dotenv
+* Nodemon
+
+---
+
+## 📁 Project Structure
+
+```text
+Day-20(AUTH-BASICS-JWT)
+│
+├── config
+│   └── db.js
+│
+├── controllers
+│   └── authController.js
+│
+├── middleware
+│   └── authMiddleware.js
+│
+├── models
+│   └── User.js
+│
+├── routes
+│   └── authRoutes.js
+│
+├── .env
+├── .gitignore
+├── README.md
+├── package.json
+├── package-lock.json
+└── server.js
+```
+
+---
+
+## 📦 Installation
+
+Install the required dependencies:
+
+```bash
+npm install
+```
+
+Development dependency:
+
+```bash
+npm install --save-dev nodemon
+```
+
+---
+
+## ▶️ Run the Project
+
+### Development Mode
+
+```bash
+npm run dev
+```
+
+### Normal Mode
+
+```bash
+npm start
+```
+
+Server runs on:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file:
+
+```env
+PORT=5000
+JWT_SECRET=day20_super_secret_key_2026
+```
+
+> `.env` should not be committed to GitHub.
+
+---
+
+# 🔑 Authentication Flow
+
+```text
+Register
+   ↓
+Password received
+   ↓
+bcrypt password hashing
+   ↓
+User stored temporarily in memory
+   ↓
+Login
+   ↓
+Password comparison using bcrypt
+   ↓
+JWT generated
+   ↓
+JWT sent to client
+   ↓
+Protected Route
+   ↓
+JWT verification
+   ↓
+Authentication successful
+   ↓
+Protected data returned
+```
+
+---
+
+# 🚀 API Endpoints
+
+## 1. Register User
+
+### Request
+
+```http
+POST /api/auth/register
+```
+
+### URL
+
+```text
+http://localhost:5000/api/auth/register
+```
+
+### Request Body
+
+```json
+{
+  "name": "Preeti",
+  "email": "preeti@example.com",
+  "password": "password123",
+  "age": 22
+}
+```
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "message": "User registered successfully",
+  "data": {
+    "id": 1786696675413,
+    "name": "Preeti",
+    "email": "preeti@example.com",
+    "age": 22
+  }
+}
+```
+
+---
+
+# 2. Login User
+
+### Request
+
+```http
+POST /api/auth/login
+```
+
+### URL
+
+```text
+http://localhost:5000/api/auth/login
+```
+
+### Request Body
+
+```json
+{
+  "email": "preeti@example.com",
+  "password": "password123"
+}
+```
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "token": "JWT_TOKEN",
+  "data": {
+    "id": 1786696675413,
+    "name": "Preeti",
+    "email": "preeti@example.com",
+    "age": 22
+  }
+}
+```
+
+The JWT token returned from login is required to access protected routes.
+
+---
+
+# 3. Get Protected Profile
+
+This is a protected route.
+
+### Request
+
+```http
+GET /api/auth/profile
+```
+
+### URL
+
+```text
+http://localhost:5000/api/auth/profile
+```
+
+### Authorization Header
+
+```text
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+In Postman:
+
+```text
+Authorization
+    ↓
+Type: Bearer Token
+    ↓
+Paste JWT Token
+```
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "message": "Protected profile accessed successfully",
+  "data": {
+    "id": 1786696675413,
+    "name": "Preeti",
+    "email": "preeti@example.com",
+    "age": 22
+  }
+}
+```
+
+---
+
+# 🧪 Authentication Testing
+
+## Register
+
+```text
+POST /api/auth/register
+```
+
+Creates a new user and hashes the password using bcrypt.
+
+## Login
+
+```text
+POST /api/auth/login
+```
+
+Checks the email and password and generates a JWT token.
+
+## Protected Route
+
+```text
+GET /api/auth/profile
+```
+
+Requires a valid JWT token.
+
+## Invalid Token
+
+If an invalid or expired token is provided:
+
+```json
+{
+  "success": false,
+  "message": "Invalid or expired token"
+}
+```
+
+## Missing Token
+
+If no token is provided:
+
+```json
+{
+  "success": false,
+  "message": "Authorization token is required"
+}
+```
+
+---
+
+# 🔒 Password Security
+
+Passwords are never stored as plain text.
+
+During registration:
+
+```text
+Plain Password
+      ↓
+bcrypt.hash()
+      ↓
+Hashed Password
+      ↓
+Stored in memory
+```
+
+During login:
+
+```text
+Entered Password
+      ↓
+bcrypt.compare()
+      ↓
+Stored Hash
+      ↓
+Password Match
+```
+
+---
+
+# 🎫 JWT Authentication
+
+JWT is generated after successful login.
+
+Example:
+
+```javascript
+const token = jwt.sign(
+  {
+    userId: user.id,
+    email: user.email
+  },
+  process.env.JWT_SECRET,
+  {
+    expiresIn: "1h"
+  }
+);
+```
+
+The authentication middleware verifies the token:
+
+```javascript
+const decoded = jwt.verify(
+  token,
+  process.env.JWT_SECRET
+);
+```
+
+If the token is valid, the request continues to the protected route.
+
+---
+
+# 🛡️ Authentication Middleware
+
+The middleware:
+
+1. Reads the Authorization header.
+2. Checks the Bearer token.
+3. Extracts the JWT.
+4. Verifies the JWT.
+5. Stores decoded user information in `req.user`.
+6. Allows the request to continue.
+
+Example:
+
+```text
+Authorization: Bearer JWT_TOKEN
+```
+
+---
+
+# 📚 What I Learned
+
+* Authentication vs authorization basics
+* Password hashing with bcrypt
+* Password comparison with bcrypt
+* JWT token generation
+* JWT token verification
+* Authorization headers
+* Bearer authentication
+* Express middleware
+* Protected routes
+* Environment variables
+* API testing with Postman
+* Handling authentication errors
+
+---
+
+# ⚠️ Important Note
+
+This Day 20 hands-on uses an **in-memory users array instead of MongoDB**.
+
+Therefore:
+
+```text
+Server Restart
+      ↓
+In-memory users reset
+      ↓
+Previously registered users are lost
+```
+
+This is only for learning the authentication and JWT concepts.
+
+In a production application, user data should be stored in a proper database such as MongoDB.
+
+---
+
+# ✅ Day 20 Checklist
+
+* [x] Create Day 20 folder
+* [x] Initialize Node.js project
+* [x] Install Express
+* [x] Install bcrypt
+* [x] Install jsonwebtoken
+* [x] Install dotenv
+* [x] Install nodemon
+* [x] Create Register API
+* [x] Hash password using bcrypt
+* [x] Create Login API
+* [x] Compare password using bcrypt
+* [x] Generate JWT
+* [x] Create authentication middleware
+* [x] Verify JWT
+* [x] Create protected profile route
+* [x] Test Register API in Postman
+* [x] Test Login API in Postman
+* [x] Test Protected Profile API
+* [x] Test Invalid Token
+* [x] Test Missing Token
+
+---
+
+# 🎯 Conclusion
+
+Day 20 successfully demonstrates the basic authentication flow using **Express.js, bcrypt and JWT**.
+
+The project implements:
+
+```text
+REGISTER
+   ↓
+HASH PASSWORD
+   ↓
+LOGIN
+   ↓
+VERIFY PASSWORD
+   ↓
+GENERATE JWT
+   ↓
+VERIFY JWT
+   ↓
+ACCESS PROTECTED ROUTE
+```
+
+**Day 20 - Auth Basics (JWT) completed successfully.**
