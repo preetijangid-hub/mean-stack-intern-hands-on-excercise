@@ -2554,7 +2554,3 @@ ACCESS PROTECTED ROUTE
 ```
 
 **Day 20 - Auth Basics (JWT) completed successfully.**
-
-db.users.find().sort({
-  age: -1
-});
