@@ -1,0 +1,47 @@
+.dashboard {
+  min-height: 100vh;
+
+  background: #f4f6f8;
+}
+
+header {
+  padding: 20px 40px;
+
+  background: white;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+header button {
+  width: auto;
+
+  padding: 10px 20px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+main {
+  padding: 40px;
+}
+
+.task-card {
+  margin-top: 25px;
+
+  padding: 25px;
+
+  background: white;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.08);
+}
