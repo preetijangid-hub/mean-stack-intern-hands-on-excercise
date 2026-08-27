@@ -2,29 +2,61 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export type TaskStatus = 'pending' | 'in-progress' | 'completed';
+export type TaskPriority = 'low' | 'medium' | 'high';
+
+export interface Task {
+  _id: string;
+  title: string;
+  description: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TaskInput {
+  title: string;
+  description: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+}
+
+interface TaskListResponse {
+  success: boolean;
+  count: number;
+  tasks: Task[];
+}
+
+interface TaskResponse {
+  success: boolean;
+  message?: string;
+  task: Task;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  private apiUrl =
+  private readonly apiUrl =
     'https://taskflow-api-zad8.onrender.com/api/tasks';
 
   constructor(
     private http: HttpClient
   ) {}
 
-  getTasks(): Observable<any> {
+  getTasks(): Observable<TaskListResponse> {
 
-    return this.http.get(
+    return this.http.get<TaskListResponse>(
       this.apiUrl
     );
 
   }
 
-  createTask(task: any): Observable<any> {
+  createTask(task: TaskInput): Observable<TaskResponse> {
 
-    return this.http.post(
+    return this.http.post<TaskResponse>(
       this.apiUrl,
       task
     );
@@ -33,10 +65,10 @@ export class TaskService {
 
   updateTask(
     id: string,
-    task: any
-  ): Observable<any> {
+    task: TaskInput
+  ): Observable<TaskResponse> {
 
-    return this.http.put(
+    return this.http.put<TaskResponse>(
       `${this.apiUrl}/${id}`,
       task
     );
@@ -45,9 +77,9 @@ export class TaskService {
 
   deleteTask(
     id: string
-  ): Observable<any> {
+  ): Observable<{ success: boolean; message?: string }> {
 
-    return this.http.delete(
+    return this.http.delete<{ success: boolean; message?: string }>(
       `${this.apiUrl}/${id}`
     );
 

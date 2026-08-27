@@ -1,41 +1,127 @@
-<div class="dashboard">
-
-  <header>
-
-    <h1>
-      TaskFlow Dashboard
-    </h1>
-
-    <button
-      (click)="logout()"
-    >
-      Logout
-    </button>
-
-  </header>
-
-  <main>
-
-    <h2>
-      Welcome to TaskFlow
-    </h2>
-
-    <p>
-      You are successfully authenticated.
-    </p>
-
-    <div class="task-card">
-
-      <h3>
-        Tasks
-      </h3>
-
-      <p>
-        Your protected task area is ready.
-      </p>
-
+<div class="dashboard-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">T</span>
+      <span>TaskFlow</span>
     </div>
+    <nav aria-label="Main navigation">
+      <a class="nav-item active" href="#tasks">
+        <span class="nav-icon">[]</span>
+        Tasks
+      </a>
+      <a class="nav-item" href="#overview">
+        <span class="nav-icon">+</span>
+        Overview
+      </a>
+    </nav>
+    <div class="sidebar-note">
+      <span class="note-mark">i</span>
+      <p>Keep your work moving, one clear task at a time.</p>
+    </div>
+  </aside>
 
-  </main>
+  <div class="main-column">
+    <header class="topbar">
+      <div class="mobile-brand"><span class="brand-mark">T</span> TaskFlow</div>
+      <div class="topbar-user">
+        <div class="avatar">TM</div>
+        <div>
+          <strong>TaskFlow member</strong>
+          <span>Authenticated workspace</span>
+        </div>
+        <button class="logout-button" type="button" (click)="logout()">Log out</button>
+      </div>
+    </header>
 
+    <main class="content" id="overview">
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow">Workspace overview</p>
+          <h1>Good to see you.</h1>
+          <p class="lede">Organize the work that matters and keep your momentum visible.</p>
+        </div>
+        <button class="primary-button" type="button" (click)="openCreateForm()" [disabled]="isBusy">
+          <span class="button-plus">+</span> Add task
+        </button>
+      </section>
+
+      @if (feedbackMessage) {
+        <div class="feedback" role="status">{{ feedbackMessage }}</div>
+      }
+
+      <section class="stats-grid" aria-label="Task summary">
+        <article class="stat-card total-stat">
+          <div class="stat-icon">ALL</div>
+          <div><span>Total tasks</span><strong>{{ totalTasks }}</strong><small>Across your workspace</small></div>
+        </article>
+        <article class="stat-card pending-stat">
+          <div class="stat-icon">P</div>
+          <div><span>Pending</span><strong>{{ pendingTasks }}</strong><small>Ready to start</small></div>
+        </article>
+        <article class="stat-card progress-stat">
+          <div class="stat-icon">WIP</div>
+          <div><span>In progress</span><strong>{{ inProgressTasks }}</strong><small>Currently active</small></div>
+        </article>
+        <article class="stat-card complete-stat">
+          <div class="stat-icon">OK</div>
+          <div><span>Completed</span><strong>{{ completedTasks }}</strong><small>Work shipped</small></div>
+        </article>
+      </section>
+
+      <section class="tasks-section" id="tasks">
+        <div class="section-heading">
+          <div><p class="eyebrow">Your workspace</p><h2>Tasks</h2></div>
+          @if (!isLoading) { <span class="task-count">{{ visibleTasks.length }} shown</span> }
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box">
+            <span aria-hidden="true">Search</span>
+            <input type="search" [(ngModel)]="searchTerm" placeholder="Search tasks..." aria-label="Search tasks" />
+          </label>
+          <label class="select-box"><span>Status</span><select [(ngModel)]="statusFilter"><option value="all">All statuses</option><option value="pending">Pending</option><option value="in-progress">In progress</option><option value="completed">Completed</option></select></label>
+          <label class="select-box"><span>Priority</span><select [(ngModel)]="priorityFilter"><option value="all">All priorities</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></label>
+          <label class="select-box sort-box"><span>Sort</span><select [(ngModel)]="sortOption"><option value="newest">Newest</option><option value="oldest">Oldest</option><option value="priority">Priority</option></select></label>
+        </div>
+
+        @if (isLoading) {
+          <div class="state-panel"><div class="spinner"></div><h3>Loading tasks...</h3><p>Fetching your latest work.</p></div>
+        } @else if (visibleTasks.length === 0) {
+          <div class="state-panel empty-state"><div class="empty-mark">+</div><h3>{{ tasks.length === 0 ? 'No tasks yet' : 'No matching tasks' }}</h3><p>{{ tasks.length === 0 ? 'Create your first task to get started.' : 'Try changing your search or filters.' }}</p>@if (tasks.length === 0) { <button class="primary-button" type="button" (click)="openCreateForm()">Create your first task</button> }</div>
+        } @else {
+          <div class="task-list">
+            @for (task of visibleTasks; track task._id) {
+              <article class="task-item" [class.is-complete]="task.status === 'completed'">
+                <div class="task-main">
+                  <div class="task-title-row"><span class="status-dot" [class]="task.status"></span><h3>{{ task.title }}</h3></div>
+                  @if (task.description) { <p>{{ task.description }}</p> }
+                  <div class="task-meta"><span class="badge" [class]="task.status">{{ statusLabel(task.status) }}</span><span class="badge priority" [class]="task.priority">{{ task.priority }}</span><span class="created-date">Added {{ formatDate(task.createdAt) }}</span></div>
+                </div>
+                <div class="task-actions">
+                  <label class="status-control"><span>Change status</span><select [ngModel]="task.status" (ngModelChange)="changeStatus(task, $event)"><option value="pending">Pending</option><option value="in-progress">In progress</option><option value="completed">Completed</option></select></label>
+                  <button class="icon-button" type="button" (click)="openEditForm(task)" [disabled]="isBusy" aria-label="Edit task">Edit</button>
+                  <button class="icon-button danger" type="button" (click)="deleteTask(task)" [disabled]="isBusy" aria-label="Delete task">Delete</button>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    </main>
+  </div>
 </div>
+
+@if (isFormOpen) {
+  <div class="modal-backdrop" role="presentation" (click)="closeForm()">
+    <section class="task-modal" role="dialog" aria-modal="true" aria-labelledby="task-form-title" (click)="$event.stopPropagation()">
+      <div class="modal-heading"><div><p class="eyebrow">Task details</p><h2 id="task-form-title">{{ editingTask ? 'Edit task' : 'Create a task' }}</h2></div><button class="close-button" type="button" (click)="closeForm()" [disabled]="isSaving" aria-label="Close">X</button></div>
+      <form (ngSubmit)="saveTask()">
+        <label class="form-field"><span>Title</span><input name="title" [(ngModel)]="form.title" placeholder="What needs to be done?" maxlength="120" required /></label>
+        <label class="form-field"><span>Description <em>Optional</em></span><textarea name="description" [(ngModel)]="form.description" placeholder="Add useful context..." rows="4" maxlength="500"></textarea></label>
+        <div class="form-row"><label class="form-field"><span>Status</span><select name="status" [(ngModel)]="form.status"><option value="pending">Pending</option><option value="in-progress">In progress</option><option value="completed">Completed</option></select></label><label class="form-field"><span>Priority</span><select name="priority" [(ngModel)]="form.priority"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></label></div>
+        @if (formError) { <p class="form-error">{{ formError }}</p> }
+        <div class="modal-actions"><button class="secondary-button" type="button" (click)="closeForm()" [disabled]="isSaving">Cancel</button><button class="primary-button" type="submit" [disabled]="isSaving">{{ isSaving ? (editingTask ? 'Updating...' : 'Creating...') : (editingTask ? 'Save changes' : 'Create task') }}</button></div>
+      </form>
+    </section>
+  </div>
+}
