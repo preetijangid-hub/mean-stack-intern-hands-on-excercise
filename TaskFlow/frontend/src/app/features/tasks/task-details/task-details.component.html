@@ -1,0 +1,50 @@
+<div class="tf-container narrow">
+  <div *ngIf="loading()" class="tf-spinner-wrap">
+    <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!loading() && error()" class="tf-empty-state tf-card">
+    <h3>{{ error() }}</h3>
+    <a routerLink="/tasks" class="tf-btn tf-btn-outline">Back to Tasks</a>
+  </div>
+
+  <div *ngIf="!loading() && task() as t" class="tf-card details-card">
+    <div class="details-header">
+      <h1>{{ t.title }}</h1>
+      <div class="badges">
+        <app-badge [text]="t.priority"></app-badge>
+        <app-badge [text]="t.status"></app-badge>
+      </div>
+    </div>
+
+    <p class="description">{{ t.description || 'No description provided.' }}</p>
+
+    <div class="meta-grid">
+      <div>
+        <span class="meta-label">Due date</span>
+        <span class="meta-value">{{ t.dueDate ? (t.dueDate | date: 'MMM d, y') : 'Not set' }}</span>
+      </div>
+      <div>
+        <span class="meta-label">Created</span>
+        <span class="meta-value">{{ t.createdAt | date: 'MMM d, y' }}</span>
+      </div>
+      <div>
+        <span class="meta-label">Last updated</span>
+        <span class="meta-value">{{ t.updatedAt | date: 'MMM d, y' }}</span>
+      </div>
+    </div>
+
+    <div class="details-actions">
+      <button
+        class="tf-btn tf-btn-primary"
+        (click)="markCompleted()"
+        *ngIf="t.status !== 'Completed'"
+      >
+        Mark Completed
+      </button>
+      <a [routerLink]="['/tasks', t._id, 'edit']" class="tf-btn tf-btn-outline">Edit</a>
+      <button class="tf-btn tf-btn-danger" (click)="confirmDelete()">Delete</button>
+      <a routerLink="/tasks" class="tf-btn tf-btn-outline">Back</a>
+    </div>
+  </div>
+</div>

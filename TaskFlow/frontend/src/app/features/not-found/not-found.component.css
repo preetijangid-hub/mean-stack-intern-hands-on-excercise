@@ -1,0 +1,21 @@
+.not-found-page {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+
+.not-found-page h1 {
+  font-size: 64px;
+  color: var(--tf-primary);
+  margin: 0;
+}
+
+.not-found-page p {
+  color: var(--tf-text-muted);
+  margin: 0 0 12px;
+}

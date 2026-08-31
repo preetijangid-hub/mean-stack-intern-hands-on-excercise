@@ -1,0 +1,64 @@
+<div class="tf-container">
+  <div class="tf-page-header">
+    <div>
+      <h1>Welcome back, {{ authService.currentUser()?.name }}</h1>
+      <p class="subtitle">Here's what's happening with your tasks today.</p>
+    </div>
+    <a routerLink="/tasks/new" class="tf-btn tf-btn-primary">+ New Task</a>
+  </div>
+
+  <div *ngIf="loading()" class="tf-spinner-wrap">
+    <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!loading() && error()" class="tf-empty-state">{{ error() }}</div>
+
+  <ng-container *ngIf="!loading() && !error()">
+    <div class="stats-grid">
+      <div class="stat-card tf-card">
+        <span class="stat-label">Total Tasks</span>
+        <span class="stat-value">{{ totalTasks() }}</span>
+      </div>
+      <div class="stat-card tf-card">
+        <span class="stat-label">Pending</span>
+        <span class="stat-value pending">{{ pendingCount() }}</span>
+      </div>
+      <div class="stat-card tf-card">
+        <span class="stat-label">In Progress</span>
+        <span class="stat-value in-progress">{{ inProgressCount() }}</span>
+      </div>
+      <div class="stat-card tf-card">
+        <span class="stat-label">Completed</span>
+        <span class="stat-value completed">{{ completedCount() }}</span>
+      </div>
+    </div>
+
+    <div class="dashboard-columns">
+      <div class="tf-card panel">
+        <h2>Recent Tasks</h2>
+        <div *ngIf="recentTasks().length === 0" class="tf-empty-state small">No tasks yet.</div>
+        <ul class="task-mini-list">
+          <li *ngFor="let task of recentTasks()">
+            <a [routerLink]="['/tasks', task._id]">{{ task.title }}</a>
+            <app-badge [text]="task.status"></app-badge>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tf-card panel">
+        <h2>High Priority</h2>
+        <div *ngIf="highPriorityTasks().length === 0" class="tf-empty-state small">
+          Nothing urgent right now.
+        </div>
+        <ul class="task-mini-list">
+          <li *ngFor="let task of highPriorityTasks()">
+            <a [routerLink]="['/tasks', task._id]">{{ task.title }}</a>
+            <span class="due-date" *ngIf="task.dueDate">
+              Due {{ task.dueDate | date: 'MMM d' }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</div>
