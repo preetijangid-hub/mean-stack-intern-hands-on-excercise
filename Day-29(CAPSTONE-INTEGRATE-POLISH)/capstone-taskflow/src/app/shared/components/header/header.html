@@ -1,0 +1,67 @@
+<header class="header">
+  <div class="header-left">
+    <button
+      type="button"
+      class="menu-button"
+      aria-label="Toggle sidebar"
+      (click)="toggleMenu()"
+    >
+      ☰
+    </button>
+
+    <div class="page-title">
+      <h2>{{ pageTitle }}</h2>
+      <p>{{ pageSubtitle }}</p>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <div
+      class="user-menu-wrapper"
+      (window:click)="closeUserMenu()"
+    >
+      <button
+        type="button"
+        class="user-trigger"
+        (click)="toggleUserMenu(); $event.stopPropagation()"
+      >
+        <div class="user-avatar">
+          {{ userInitials }}
+        </div>
+
+        <div class="user-text">
+          <span>Welcome back</span>
+          <strong>{{ userName }}</strong>
+        </div>
+
+        <span class="chevron">▾</span>
+      </button>
+
+      @if (userMenuOpen()) {
+        <div
+          class="user-dropdown"
+          (click)="$event.stopPropagation()"
+        >
+          <div class="dropdown-user">
+            <div class="user-avatar large">
+              {{ userInitials }}
+            </div>
+
+            <div>
+              <strong>{{ userName }}</strong>
+              <span>{{ userEmail }}</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="dropdown-logout"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

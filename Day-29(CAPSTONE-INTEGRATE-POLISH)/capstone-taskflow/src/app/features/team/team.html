@@ -1,0 +1,170 @@
+<div class="page-layout">
+  <app-sidebar
+    [isOpen]="sidebarOpen()"
+    (menuClick)="toggleSidebar()"
+  />
+
+  <div class="page-content">
+    <app-header
+      pageTitle="Team"
+      pageSubtitle="Member workload and performance"
+      [sidebarOpen]="sidebarOpen()"
+      (menuClick)="toggleSidebar()"
+    />
+
+    <main class="page-main">
+      <div class="section-heading">
+        <div>
+          <h2>Team Members</h2>
+          <p>
+            Performance is calculated from tasks assigned
+            to each member
+          </p>
+        </div>
+
+        <a
+          routerLink="/dashboard"
+          class="btn btn-ghost"
+        >
+          Back to Dashboard
+        </a>
+      </div>
+
+      <div class="team-toolbar">
+        <div class="search-wrapper">
+          <span>⌕</span>
+
+          <input
+            type="text"
+            placeholder="Search members by name, role or email…"
+            [value]="searchTerm()"
+            (input)="onSearch($event)"
+          />
+        </div>
+
+        <div class="sort-group">
+          <button
+            type="button"
+            class="btn btn-ghost"
+            [class.active]="sortBy() === 'performance'"
+            (click)="setSort('performance')"
+          >
+            By Performance
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-ghost"
+            [class.active]="sortBy() === 'name'"
+            (click)="setSort('name')"
+          >
+            By Name
+          </button>
+        </div>
+      </div>
+
+      @if (isLoading()) {
+        <div class="state-card surface-card">
+          <div class="spinner"></div>
+          <h3>Loading team…</h3>
+          <p>Fetching the latest task data.</p>
+        </div>
+      } @else if (errorMessage()) {
+        <div class="state-card error-state surface-card">
+          <div class="state-icon">!</div>
+          <h3>Something went wrong</h3>
+          <p>{{ errorMessage() }}</p>
+
+          <button
+            type="button"
+            class="btn btn-dark retry-button"
+            (click)="loadTasks()"
+          >
+            Try Again
+          </button>
+        </div>
+      } @else if (performances().length === 0) {
+        <div class="state-card surface-card">
+          <div class="state-icon">⌕</div>
+          <h3>No matching members</h3>
+          <p>Try a different search term.</p>
+        </div>
+      } @else {
+        @if (!hasAssignments()) {
+          <div class="hint-card surface-card">
+            <strong>No assignments yet</strong>
+            <p>
+              Assign tasks to members from the dashboard
+              task editor — performance will update instantly.
+            </p>
+          </div>
+        }
+
+        <div class="team-grid">
+          @for (
+            item of performances();
+            track item.member._id
+          ) {
+            <article
+              class="member-card surface-card"
+              appHighlight
+            >
+              <header class="member-header">
+                <div class="member-avatar">
+                  {{ item.initials }}
+                </div>
+
+                <div class="member-title">
+                  <h3>{{ item.member.name }}</h3>
+                  <p>{{ item.member.role }}</p>
+                  <span>{{ item.member.email }}</span>
+                </div>
+              </header>
+
+              <div class="member-stats">
+                <div class="mini-stat">
+                  <strong>{{ item.total }}</strong>
+                  <span>Total</span>
+                </div>
+
+                <div class="mini-stat">
+                  <strong>{{ item.completed }}</strong>
+                  <span>Completed</span>
+                </div>
+
+                <div class="mini-stat">
+                  <strong>{{ item.inProgress }}</strong>
+                  <span>In Progress</span>
+                </div>
+
+                <div class="mini-stat">
+                  <strong>{{ item.notStarted }}</strong>
+                  <span>Not Started</span>
+                </div>
+              </div>
+
+              <div class="member-performance">
+                <div class="progress-meta">
+                  <span>Performance</span>
+                  <strong>{{ item.performance }}%</strong>
+                </div>
+
+                <div class="progress-track large">
+                  <div
+                    class="progress-fill green"
+                    [style.width.%]="item.performance"
+                  ></div>
+                </div>
+
+                <p class="avg-note">
+                  Average task progress:
+                  {{ item.averageProgress }}%
+                </p>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </main>
+  </div>
+</div>

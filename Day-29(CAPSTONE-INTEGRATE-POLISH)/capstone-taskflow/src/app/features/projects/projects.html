@@ -1,0 +1,136 @@
+<div class="page-layout">
+  <app-sidebar
+    [isOpen]="sidebarOpen()"
+    (menuClick)="toggleSidebar()"
+  />
+
+  <div class="page-content">
+    <app-header
+      pageTitle="Projects"
+      pageSubtitle="Track performance across every project"
+      [sidebarOpen]="sidebarOpen()"
+      (menuClick)="toggleSidebar()"
+    />
+
+    <main class="page-main">
+      <div class="section-heading">
+        <div>
+          <h2>Projects</h2>
+          <p>
+            {{ totalTasks() }} tasks distributed across
+            {{ projects.length }} projects
+          </p>
+        </div>
+
+        <a
+          routerLink="/dashboard"
+          class="btn btn-ghost"
+        >
+          Back to Dashboard
+        </a>
+      </div>
+
+      @if (isLoading()) {
+        <div class="state-card surface-card">
+          <div class="spinner"></div>
+          <h3>Loading projects…</h3>
+          <p>Fetching the latest task data.</p>
+        </div>
+      } @else if (errorMessage()) {
+        <div class="state-card error-state surface-card">
+          <div class="state-icon">!</div>
+          <h3>Something went wrong</h3>
+          <p>{{ errorMessage() }}</p>
+
+          <button
+            type="button"
+            class="btn btn-dark retry-button"
+            (click)="loadTasks()"
+          >
+            Try Again
+          </button>
+        </div>
+      } @else {
+        <div class="project-grid">
+          @for (
+            item of performances();
+            track item.project
+          ) {
+            <article
+              class="project-card surface-card"
+              appHighlight
+            >
+              <header class="project-header">
+                <span
+                  class="project-dot"
+                  [style.background]="item.color"
+                ></span>
+
+                <div class="project-title">
+                  <h3>{{ item.project }}</h3>
+                  <p>{{ item.description }}</p>
+                </div>
+
+                <span class="badge badge-neutral">
+                  {{ item.total }} tasks
+                </span>
+              </header>
+
+              <div class="project-progress">
+                <div class="progress-meta">
+                  <span>Progress</span>
+                  <strong>{{ item.progress }}%</strong>
+                </div>
+
+                <div class="progress-track large">
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="item.progress"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="project-stats">
+                <div class="mini-stat">
+                  <strong>{{ item.completed }}</strong>
+                  <span>Completed</span>
+                </div>
+
+                <div class="mini-stat">
+                  <strong>{{ item.inProgress }}</strong>
+                  <span>In Progress</span>
+                </div>
+
+                <div class="mini-stat">
+                  <strong>{{ item.notStarted }}</strong>
+                  <span>Not Started</span>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+
+        <section class="overall-card surface-card">
+          <div>
+            <h3>Overall Progress</h3>
+            <p>
+              Average progress across all
+              {{ totalTasks() }} tasks
+            </p>
+          </div>
+
+          <strong class="overall-value">
+            {{ overallProgress() }}%
+          </strong>
+
+          <div class="progress-track large overall-track">
+            <div
+              class="progress-fill"
+              [style.width.%]="overallProgress()"
+            ></div>
+          </div>
+        </section>
+      }
+    </main>
+  </div>
+</div>

@@ -1,0 +1,1017 @@
+<div class="dashboard-layout">
+  <app-sidebar
+    [isOpen]="sidebarOpen()"
+    [activeFilter]="statusFilter() === 'all' ? 'all' : statusFilter()"
+    [activeProject]="projectFilter()"
+    [statusCounts]="statusCounts()"
+    (filterChange)="onFilterChange($event)"
+    (projectChange)="onProjectChange($event)"
+  />
+
+  <div class="dashboard-content">
+    <app-header
+      pageTitle="Dashboard"
+      pageSubtitle="Organize, track and complete your work"
+      [sidebarOpen]="sidebarOpen()"
+      (menuClick)="toggleSidebar()"
+    />
+
+    <main class="main-content">
+
+      <!-- ============ WELCOME ============ -->
+      <section class="welcome-section">
+        <div>
+          <span class="section-label">
+            PRODUCTIVITY OVERVIEW
+          </span>
+
+          <h1>Manage your tasks efficiently</h1>
+
+          <p>
+            Stay organized, track your progress and
+            complete more every day.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary add-task-button"
+          (click)="openCreateModal()"
+        >
+          <span class="plus">+</span>
+          Add New Task
+        </button>
+      </section>
+
+      <!-- ============ SUMMARY CARDS ============ -->
+      <section class="stats-grid">
+        <article class="stat-card" appHighlight>
+          <div class="stat-icon total-icon">📋</div>
+          <div class="stat-text">
+            <span>Total Tasks</span>
+            <strong>{{ totalTasks() }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card" appHighlight>
+          <div class="stat-icon pending-icon">◷</div>
+          <div class="stat-text">
+            <span>Not Started</span>
+            <strong>{{ notStartedCount() }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card" appHighlight>
+          <div class="stat-icon progress-icon">◔</div>
+          <div class="stat-text">
+            <span>In Progress</span>
+            <strong>{{ inProgressCount() }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card" appHighlight>
+          <div class="stat-icon completed-icon">✓</div>
+          <div class="stat-text">
+            <span>Completed</span>
+            <strong>{{ completedCount() }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card" appHighlight>
+          <div class="stat-icon high-icon">🔥</div>
+          <div class="stat-text">
+            <span>High Priority</span>
+            <strong>{{ highPriorityCount() }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card" appHighlight>
+          <div class="stat-icon rate-icon">📈</div>
+          <div class="stat-text">
+            <span>Completion Rate</span>
+            <strong>{{ completionRate() }}%</strong>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============ TASK PROGRESS ============ -->
+      <section class="progress-card">
+        <div class="progress-header">
+          <div>
+            <h3>Task Progress</h3>
+            <p>
+              {{ completedCount() }} of
+              {{ totalTasks() }} tasks completed
+            </p>
+          </div>
+
+          <strong class="progress-value">
+            {{ completionRate() }}%
+          </strong>
+        </div>
+
+        <div class="progress-track large">
+          <div
+            class="progress-fill"
+            [style.width.%]="completionRate()"
+          ></div>
+        </div>
+
+        <div class="progress-legend">
+          <span>
+            <i class="dot dot-green"></i>
+            Completed: {{ completedCount() }}
+          </span>
+
+          <span>
+            <i class="dot dot-blue"></i>
+            In Progress: {{ inProgressCount() }}
+          </span>
+
+          <span>
+            <i class="dot dot-gray"></i>
+            Not Started: {{ notStartedCount() }}
+          </span>
+
+          <span>
+            <i class="dot dot-purple"></i>
+            Avg Progress: {{ averageProgress() }}%
+          </span>
+        </div>
+      </section>
+
+      <!-- ============ TASKS ============ -->
+      <section class="tasks-section">
+        <div class="tasks-toolbar">
+          <div>
+            <h2>Your Tasks</h2>
+            <p>
+              {{ filteredTasks().length }} task(s)
+              currently visible
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="openCreateModal()"
+          >
+            + Add Task
+          </button>
+        </div>
+
+        <!-- Filter toolbar -->
+        <div class="filter-toolbar">
+          <div class="search-wrapper">
+            <span>⌕</span>
+
+            <input
+              type="text"
+              placeholder="Search by title or description…"
+              [value]="searchTerm()"
+              (input)="onSearch($event)"
+            />
+          </div>
+
+          <select
+            class="filter-select"
+            [value]="statusFilter()"
+            (change)="onStatusFilter($event)"
+            aria-label="Filter by status"
+          >
+            <option value="all">All Statuses</option>
+            <option value="pending">Not Started</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+
+          <select
+            class="filter-select"
+            [value]="priorityFilter()"
+            (change)="onPriorityFilter($event)"
+            aria-label="Filter by priority"
+          >
+            <option value="all">All Priorities</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+
+          <select
+            class="filter-select"
+            [value]="projectFilter()"
+            (change)="onProjectFilter($event)"
+            aria-label="Filter by project"
+          >
+            <option value="">All Projects</option>
+            @for (project of projects; track project._id) {
+              <option [value]="project.name">
+                {{ project.name }}
+              </option>
+            }
+          </select>
+
+          <select
+            class="filter-select"
+            [value]="sortBy()"
+            (change)="onSortChange($event)"
+            aria-label="Sort tasks"
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="priority">Priority</option>
+            <option value="progress">Progress</option>
+            <option value="alphabetical">
+              Alphabetical
+            </option>
+          </select>
+
+          @if (hasActiveFilters()) {
+            <button
+              type="button"
+              class="btn btn-ghost clear-button"
+              (click)="clearFilters()"
+            >
+              ✕ Clear Filters
+            </button>
+          }
+        </div>
+
+        <!-- States -->
+        @if (isLoading()) {
+          <div class="state-card">
+            <div class="spinner"></div>
+            <h3>Loading your tasks…</h3>
+            <p>Please wait a moment.</p>
+          </div>
+        } @else if (errorMessage()) {
+          <div class="state-card error-state">
+            <div class="state-icon">!</div>
+            <h3>Something went wrong</h3>
+            <p>{{ errorMessage() }}</p>
+
+            <button
+              type="button"
+              class="btn btn-dark retry-button"
+              (click)="loadTasks()"
+            >
+              Try Again
+            </button>
+          </div>
+        } @else if (totalTasks() === 0) {
+          <div class="state-card">
+            <div class="state-icon">✓</div>
+            <h3>No tasks found</h3>
+            <p>
+              Create your first task and start
+              being productive.
+            </p>
+
+            <button
+              type="button"
+              class="btn btn-primary retry-button"
+              (click)="openCreateModal()"
+            >
+              Create your first task
+            </button>
+          </div>
+        } @else if (filteredTasks().length === 0) {
+          <div class="state-card">
+            <div class="state-icon">⌕</div>
+            <h3>No matching tasks</h3>
+            <p>
+              No tasks match your current filters.
+            </p>
+
+            <button
+              type="button"
+              class="btn btn-ghost retry-button"
+              (click)="clearFilters()"
+            >
+              Clear Filters
+            </button>
+          </div>
+        } @else {
+          <!-- Task list -->
+          <div class="task-list">
+            @for (
+              task of filteredTasks();
+              track task._id
+            ) {
+              <article
+                class="task-card"
+                [ngClass]="{
+                  completed: task.status === 'completed'
+                }"
+                appHighlight
+              >
+                <button
+                  type="button"
+                  class="status-checkbox"
+                  [ngClass]="{
+                    checked:
+                      task.status === 'completed'
+                  }"
+                  [attr.aria-label]="
+                    task.status === 'completed'
+                      ? 'Mark task as not started'
+                      : 'Mark task as completed'
+                  "
+                  (click)="cycleStatus(task)"
+                >
+                  @if (task.status === 'completed') {
+                    ✓
+                  }
+                </button>
+
+                <div class="task-details">
+                  <div class="task-top-row">
+                    <h3>{{ task.title }}</h3>
+
+                    <span
+                      class="badge"
+                      [ngClass]="
+                        'badge-status-' + task.status
+                      "
+                    >
+                      {{ task.status | taskStatus }}
+                    </span>
+
+                    <span
+                      class="badge"
+                      [ngClass]="
+                        'badge-priority-' +
+                        task.priority
+                      "
+                    >
+                      {{ priorityLabel(task.priority) }}
+                    </span>
+                  </div>
+
+                  @if (task.description) {
+                    <p class="task-description">
+                      {{ task.description }}
+                    </p>
+                  }
+
+                  <div class="task-meta">
+                    @if (task.project) {
+                      <span class="meta-item">
+                        <b>Project:</b>
+                        {{ task.project }}
+                      </span>
+                    }
+
+                    @if (task.assignedTo) {
+                      <span class="meta-item">
+                        <b>Assigned:</b>
+                        {{ task.assignedTo }}
+                      </span>
+                    }
+
+                    @if (task.createdAt) {
+                      <span class="meta-item">
+                        <b>Created:</b>
+                        {{
+                          task.createdAt
+                            | date: 'mediumDate'
+                        }}
+                      </span>
+                    }
+                  </div>
+
+                  <div class="task-progress">
+                    <div class="progress-track">
+                      <div
+                        class="progress-fill"
+                        [ngClass]="{
+                          green:
+                            task.status === 'completed'
+                        }"
+                        [style.width.%]="
+                          resolveProgress(task)
+                        "
+                      ></div>
+                    </div>
+
+                    <span class="progress-label">
+                      Progress:
+                      {{ resolveProgress(task) }}%
+                    </span>
+                  </div>
+                </div>
+
+                <div class="task-actions">
+                  <button
+                    type="button"
+                    class="btn btn-ghost edit-button"
+                    (click)="openEditModal(task)"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    [disabled]="
+                      deletingId() === task._id
+                    "
+                    (click)="requestDelete(task)"
+                  >
+                    @if (deletingId() === task._id) {
+                      <span class="spinner small"></span>
+                    } @else {
+                      Delete
+                    }
+                  </button>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </section>
+
+      <!-- ============ PERFORMANCE OVERVIEW ============ -->
+      <section
+        id="performance"
+        class="performance-section"
+      >
+        <div class="section-heading">
+          <div>
+            <h2>Performance Overview</h2>
+            <p>
+              Live metrics calculated from your
+              {{ totalTasks() }} tasks
+            </p>
+          </div>
+        </div>
+
+        <div class="perf-grid">
+          <!-- Overall -->
+          <article class="perf-card overall surface-card">
+            <h3>Overall Project Performance</h3>
+
+            <div class="overall-figures">
+              <div class="figure">
+                <strong>{{ totalTasks() }}</strong>
+                <span>Total tasks</span>
+              </div>
+
+              <div class="figure">
+                <strong>{{ completedCount() }}</strong>
+                <span>Completed</span>
+              </div>
+
+              <div class="figure">
+                <strong>
+                  {{ inProgressCount() + notStartedCount() }}
+                </strong>
+                <span>Pending</span>
+              </div>
+
+              <div class="figure">
+                <strong>{{ completionRate() }}%</strong>
+                <span>Completion</span>
+              </div>
+            </div>
+
+            <div class="progress-track large">
+              <div
+                class="progress-fill"
+                [style.width.%]="completionRate()"
+              ></div>
+            </div>
+
+            <p class="perf-note">
+              Average progress across all tasks:
+              {{ averageProgress() }}%
+            </p>
+          </article>
+
+          <!-- Status distribution -->
+          <article class="perf-card surface-card">
+            <h3>Status Distribution</h3>
+
+            <div class="dist-row">
+              <span class="dist-label">Completed</span>
+              <div class="dist-track">
+                <div
+                  class="progress-fill green"
+                  [style.width.%]="
+                    totalTasks()
+                      ? (completedCount() / totalTasks()) * 100
+                      : 0
+                  "
+                ></div>
+              </div>
+              <strong>{{ completedCount() }}</strong>
+            </div>
+
+            <div class="dist-row">
+              <span class="dist-label">In Progress</span>
+              <div class="dist-track">
+                <div
+                  class="progress-fill sky"
+                  [style.width.%]="
+                    totalTasks()
+                      ? (inProgressCount() / totalTasks()) * 100
+                      : 0
+                  "
+                ></div>
+              </div>
+              <strong>{{ inProgressCount() }}</strong>
+            </div>
+
+            <div class="dist-row">
+              <span class="dist-label">Not Started</span>
+              <div class="dist-track">
+                <div
+                  class="progress-fill amber"
+                  [style.width.%]="
+                    totalTasks()
+                      ? (notStartedCount() / totalTasks()) * 100
+                      : 0
+                  "
+                ></div>
+              </div>
+              <strong>{{ notStartedCount() }}</strong>
+            </div>
+          </article>
+
+          <!-- Priority distribution -->
+          <article class="perf-card surface-card">
+            <h3>Priority Distribution</h3>
+
+            <div class="dist-row">
+              <span class="dist-label">High</span>
+              <div class="dist-track">
+                <div
+                  class="dist-fill high"
+                  [style.width.%]="
+                    totalTasks()
+                      ? (highPriorityCount() / totalTasks()) * 100
+                      : 0
+                  "
+                ></div>
+              </div>
+              <strong>{{ highPriorityCount() }}</strong>
+            </div>
+
+            <div class="dist-row">
+              <span class="dist-label">Medium</span>
+              <div class="dist-track">
+                <div
+                  class="dist-fill medium"
+                  [style.width.%]="
+                    totalTasks()
+                      ? (mediumPriorityCount() / totalTasks()) * 100
+                      : 0
+                  "
+                ></div>
+              </div>
+              <strong>{{ mediumPriorityCount() }}</strong>
+            </div>
+
+            <div class="dist-row">
+              <span class="dist-label">Low</span>
+              <div class="dist-track">
+                <div
+                  class="dist-fill low"
+                  [style.width.%]="
+                    totalTasks()
+                      ? (lowPriorityCount() / totalTasks()) * 100
+                      : 0
+                  "
+                ></div>
+              </div>
+              <strong>{{ lowPriorityCount() }}</strong>
+            </div>
+          </article>
+        </div>
+
+        <!-- Project performance -->
+        @if (projectPerformance().length > 0) {
+          <div class="section-heading sub">
+            <div>
+              <h3>Project Performance</h3>
+              <p>
+                Task distribution and progress per project
+              </p>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            @for (
+              item of projectPerformance();
+              track item.name
+            ) {
+              <article
+                class="project-card surface-card"
+                appHighlight
+              >
+                <header class="project-header">
+                  <span
+                    class="project-dot"
+                    [style.background]="item.color"
+                  ></span>
+
+                  <h4>{{ item.name }}</h4>
+
+                  <span class="badge badge-neutral">
+                    {{ item.total }} tasks
+                  </span>
+                </header>
+
+                <div class="progress-track">
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="item.progress"
+                  ></div>
+                </div>
+
+                <div class="project-stats">
+                  <span>
+                    <i class="dot dot-green"></i>
+                    {{ item.completed }} completed
+                  </span>
+
+                  <span>
+                    <i class="dot dot-blue"></i>
+                    {{ item.inProgress }} in progress
+                  </span>
+
+                  <span>
+                    <i class="dot dot-gray"></i>
+                    {{ item.notStarted }} not started
+                  </span>
+                </div>
+
+                <strong class="project-progress-value">
+                  {{ item.progress }}%
+                </strong>
+              </article>
+            }
+          </div>
+        }
+
+        <!-- Team performance -->
+        @if (memberPerformance().length > 0) {
+          <div class="section-heading sub">
+            <div>
+              <h3>Team Performance</h3>
+              <p>
+                Completion rate per assigned member
+              </p>
+            </div>
+
+            <a
+              routerLink="/team"
+              class="btn btn-ghost"
+            >
+              View Team
+            </a>
+          </div>
+
+          <div class="team-grid">
+            @for (
+              item of memberPerformance();
+              track item.name
+            ) {
+              <article
+                class="member-card surface-card"
+                appHighlight
+              >
+                <div class="member-avatar">
+                  {{ item.initials }}
+                </div>
+
+                <div class="member-info">
+                  <h4>{{ item.name }}</h4>
+                  <p>{{ item.role }}</p>
+                </div>
+
+                <div class="member-figures">
+                  <span>
+                    {{ item.total }} assigned
+                  </span>
+
+                  <span>
+                    {{ item.completed }} completed
+                  </span>
+
+                  <span>
+                    {{ item.inProgress }} in progress
+                  </span>
+                </div>
+
+                <div class="progress-track">
+                  <div
+                    class="progress-fill green"
+                    [style.width.%]="item.performance"
+                  ></div>
+                </div>
+
+                <strong class="member-performance-value">
+                  {{ item.performance }}%
+                </strong>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ============ ADD / EDIT MODAL ============ -->
+@if (showTaskModal()) {
+  <div
+    class="modal-backdrop"
+    (click)="closeModal()"
+  >
+    <div
+      class="task-modal"
+      role="dialog"
+      aria-modal="true"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="modal-header">
+        <div>
+          <span class="section-label">
+            {{ isEditMode() ? 'UPDATE TASK' : 'NEW TASK' }}
+          </span>
+
+          <h2>
+            {{
+              isEditMode()
+                ? 'Edit your task'
+                : 'Create a new task'
+            }}
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close"
+          (click)="closeModal()"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div
+          class="field"
+          [class.invalid]="formError()"
+        >
+          <label for="taskTitle">
+            Task Title <span class="required">*</span>
+          </label>
+
+          <input
+            id="taskTitle"
+            type="text"
+            placeholder="What do you need to do?"
+            maxlength="120"
+            [value]="taskForm().title"
+            (input)="
+              updateForm({
+                title: $any($event.target).value
+              })
+            "
+          />
+
+          @if (formError()) {
+            <span class="error-text">
+              {{ formError() }}
+            </span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="taskDescription">
+            Description
+          </label>
+
+          <textarea
+            id="taskDescription"
+            rows="4"
+            maxlength="500"
+            placeholder="Add more details about this task…"
+            [value]="taskForm().description"
+            (input)="
+              updateForm({
+                description: $any($event.target).value
+              })
+            "
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="taskStatus">Status</label>
+
+            <select
+              id="taskStatus"
+              [value]="taskForm().status"
+              (change)="
+                updateForm({
+                  status: $any($event.target).value
+                })
+              "
+            >
+              @for (
+                option of modalStatuses;
+                track option.value
+              ) {
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="taskPriority">Priority</label>
+
+            <select
+              id="taskPriority"
+              [value]="taskForm().priority"
+              (change)="
+                updateForm({
+                  priority: $any($event.target).value
+                })
+              "
+            >
+              @for (
+                option of modalPriorities;
+                track option.value
+              ) {
+                <option [value]="option.value">
+                  {{ option.label }}
+                </option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="taskProgress">
+            Progress — {{ taskForm().progress }}%
+          </label>
+
+          <input
+            id="taskProgress"
+            type="range"
+            min="0"
+            max="100"
+            step="5"
+            [value]="taskForm().progress"
+            (input)="
+              updateForm({
+                progress: +$any($event.target).value
+              })
+            "
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="taskProject">Project</label>
+
+            <select
+              id="taskProject"
+              [value]="taskForm().project"
+              (change)="
+                updateForm({
+                  project: $any($event.target).value
+                })
+              "
+            >
+              <option value="">General (default)</option>
+              @for (
+                project of projects;
+                track project._id
+              ) {
+                <option [value]="project.name">
+                  {{ project.name }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="taskAssignee">
+              Assign To
+            </label>
+
+            <select
+              id="taskAssignee"
+              [value]="taskForm().assignedTo"
+              (change)="
+                updateForm({
+                  assignedTo: $any($event.target).value
+                })
+              "
+            >
+              <option value="">Unassigned</option>
+              @for (
+                member of members;
+                track member._id
+              ) {
+                <option [value]="member.name">
+                  {{ member.name }}
+                </option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <p class="meta-note">
+          Status, priority, project and assignment update the
+          dashboard instantly. Project & assignment details are
+          stored locally in this demo build.
+        </p>
+      </div>
+
+      <div class="modal-actions">
+        <button
+          type="button"
+          class="btn btn-ghost"
+          [disabled]="isSaving()"
+          (click)="closeModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="isSaving()"
+          (click)="saveTask()"
+        >
+          @if (isSaving()) {
+            <span class="spinner small"></span>
+            Saving…
+          } @else {
+            {{
+              isEditMode()
+                ? 'Save Changes'
+                : 'Create Task'
+            }}
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ============ DELETE CONFIRMATION ============ -->
+@if (confirmDeleteId()) {
+  <div
+    class="modal-backdrop"
+    (click)="cancelDelete()"
+  >
+    <div
+      class="confirm-modal"
+      role="alertdialog"
+      aria-modal="true"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="confirm-icon">!</div>
+
+      <h3>Delete this task?</h3>
+
+      <p>
+        "{{ confirmDeleteTitle() }}" will be permanently
+        removed. This action cannot be undone.
+      </p>
+
+      <div class="confirm-actions">
+        <button
+          type="button"
+          class="btn btn-ghost"
+          [disabled]="!!deletingId()"
+          (click)="cancelDelete()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          [disabled]="!!deletingId()"
+          (click)="confirmDelete()"
+        >
+          @if (deletingId()) {
+            <span class="spinner small"></span>
+            Deleting…
+          } @else {
+            Delete Task
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}

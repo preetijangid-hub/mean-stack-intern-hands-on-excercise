@@ -1,0 +1,161 @@
+<aside
+  class="sidebar"
+  [ngClass]="{ 'sidebar-closed': !isOpen }"
+>
+  <div class="brand">
+    <div class="brand-icon">✓</div>
+
+    <div class="brand-text">
+      <h2>TaskFlow</h2>
+      <span>Productivity Hub</span>
+    </div>
+  </div>
+
+  <nav class="navigation">
+    <p class="nav-label">MENU</p>
+
+    <a
+      routerLink="/dashboard"
+      class="nav-item"
+      [ngClass]="{
+        active: currentRoute === '/dashboard'
+      }"
+    >
+      <span class="nav-icon">▦</span>
+      <span>Dashboard</span>
+    </a>
+
+    <a
+      routerLink="/projects"
+      class="nav-item"
+      [ngClass]="{
+        active: currentRoute === '/projects'
+      }"
+    >
+      <span class="nav-icon">▤</span>
+      <span>Projects</span>
+    </a>
+
+    <a
+      routerLink="/team"
+      class="nav-item"
+      [ngClass]="{
+        active: currentRoute === '/team'
+      }"
+    >
+      <span class="nav-icon">◉</span>
+      <span>Team</span>
+    </a>
+
+    <p class="nav-label">TASKS</p>
+
+    <button
+      type="button"
+      class="nav-item"
+      [ngClass]="{
+        active:
+          currentRoute === '/dashboard' &&
+          activeFilter === 'all' &&
+          !activeProject
+      }"
+      (click)="setFilter('all')"
+    >
+      <span class="nav-icon">▦</span>
+      <span>All Tasks</span>
+      <span class="nav-count">
+        {{ statusCounts.all }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="nav-item"
+      [ngClass]="{
+        active:
+          currentRoute === '/dashboard' &&
+          activeFilter === 'pending' &&
+          !activeProject
+      }"
+      (click)="setFilter('pending')"
+    >
+      <span class="nav-icon">◷</span>
+      <span>Not Started</span>
+      <span class="nav-count">
+        {{ statusCounts.pending }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="nav-item"
+      [ngClass]="{
+        active:
+          currentRoute === '/dashboard' &&
+          activeFilter === 'in-progress' &&
+          !activeProject
+      }"
+      (click)="setFilter('in-progress')"
+    >
+      <span class="nav-icon">◔</span>
+      <span>In Progress</span>
+      <span class="nav-count">
+        {{ statusCounts['in-progress'] }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="nav-item"
+      [ngClass]="{
+        active:
+          currentRoute === '/dashboard' &&
+          activeFilter === 'completed' &&
+          !activeProject
+      }"
+      (click)="setFilter('completed')"
+    >
+      <span class="nav-icon">✓</span>
+      <span>Completed</span>
+      <span class="nav-count">
+        {{ statusCounts.completed }}
+      </span>
+    </button>
+
+    <p class="nav-label">PROJECTS</p>
+
+    @for (
+      project of projects;
+      track project._id
+    ) {
+      <button
+        type="button"
+        class="nav-item project-item"
+        [ngClass]="{
+          active:
+            currentRoute === '/dashboard' &&
+            activeProject === project.name
+        }"
+        (click)="selectProject(project.name)"
+      >
+        <span
+          class="project-dot"
+          [style.background]="
+            project.color || '#64748b'
+          "
+        ></span>
+        <span>{{ project.name }}</span>
+      </button>
+    }
+  </nav>
+
+  <div class="sidebar-bottom">
+    <button
+      type="button"
+      class="logout-button"
+      (click)="logout()"
+    >
+      <span class="nav-icon">⏻</span>
+      <span>Logout</span>
+    </button>
+  </div>
+</aside>
