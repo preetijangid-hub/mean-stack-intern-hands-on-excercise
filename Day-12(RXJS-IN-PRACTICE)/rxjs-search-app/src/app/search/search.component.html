@@ -1,0 +1,109 @@
+<div class="page">
+
+  <header class="header">
+    <div>
+      <span class="eyebrow">RXJS • LIVE SEARCH</span>
+
+      <h1>Find a User</h1>
+
+      <p>
+        Search users with debounce, switchMap and reactive streams.
+      </p>
+    </div>
+
+    <div class="rxjs-badge">
+      RxJS Powered
+    </div>
+  </header>
+
+  <main class="search-container">
+
+    <div class="search-box">
+
+      <div class="search-icon">
+        ⌕
+      </div>
+
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Search by name, username or email..."
+        autocomplete="off"
+      />
+
+      @if (searchControl.value) {
+        <button
+          type="button"
+          class="clear-button"
+          (click)="clearSearch()"
+          aria-label="Clear search"
+        >
+          ×
+        </button>
+      }
+
+    </div>
+
+    @if (loading) {
+      <div class="loading">
+        <span class="spinner"></span>
+        <span>Searching...</span>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <div class="error">
+        <strong>Something went wrong</strong>
+        <span>{{ errorMessage }}</span>
+      </div>
+    }
+
+    @if (!loading && !errorMessage) {
+
+      <div class="results-header">
+        <h2>Users</h2>
+
+        <span>
+          Search results update automatically
+        </span>
+      </div>
+
+      <div class="user-grid">
+
+        @for (user of users$ | async; track user.id) {
+
+          <article class="user-card">
+
+            <div class="avatar">
+              {{ user.name.charAt(0) }}
+            </div>
+
+            <div class="user-details">
+
+              <h3>{{ user.name }}</h3>
+
+              <p class="username">
+                &#64;{{ user.username }}
+              </p>
+
+              <div class="email">
+                {{ user.email }}
+              </div>
+
+              <div class="company">
+                {{ user.company.name }}
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+  </main>
+
+</div>
