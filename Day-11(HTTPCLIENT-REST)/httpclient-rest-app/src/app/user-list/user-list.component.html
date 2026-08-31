@@ -1,0 +1,71 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">REST API • HTTPCLIENT</span>
+      <h1>User Directory</h1>
+      <p>
+        Real-time user data fetched from a public REST API.
+      </p>
+    </div>
+
+    <div class="api-badge">
+      <span class="status-dot"></span>
+      API Connected
+    </div>
+  </header>
+
+  @if (loading) {
+    <div class="state-card">
+      <div class="spinner"></div>
+      <h2>Loading users...</h2>
+      <p>Fetching data from the REST API.</p>
+    </div>
+  }
+
+  @if (!loading && errorMessage) {
+    <div class="state-card error-state">
+      <div class="state-icon">!</div>
+      <h2>Something went wrong</h2>
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+
+  @if (!loading && !errorMessage) {
+    <div class="user-grid">
+      @for (user of users$ | async; track user.id) {
+        <article class="user-card">
+
+          <div class="avatar">
+            {{ user.name.charAt(0) }}
+          </div>
+
+          <div class="user-content">
+            <h2>{{ user.name }}</h2>
+
+            <p class="username">
+              &#64;{{ user.username }}
+            </p>
+
+            <div class="user-info">
+              <div>
+                <span class="label">Email</span>
+                <span>{{ user.email }}</span>
+              </div>
+
+              <div>
+                <span class="label">Company</span>
+                <span>{{ user.company.name }}</span>
+              </div>
+
+              <div>
+                <span class="label">Phone</span>
+                <span>{{ user.phone }}</span>
+              </div>
+            </div>
+          </div>
+
+        </article>
+      }
+    </div>
+  }
+</div>
